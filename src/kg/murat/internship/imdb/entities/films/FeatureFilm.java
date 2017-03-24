@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Created by Fujitsu on 20.03.2017.
  */
-public class FeatureFilm extends Film implements Releasable, Writable {
+public class FeatureFilm extends Film implements Releasable, Writable, Genreable, Budgetable {
     private Date releaseDate;
     private Long budget;
     private Set<Writer> writers;

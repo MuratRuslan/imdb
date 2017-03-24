@@ -4,8 +4,10 @@ import kg.murat.internship.imdb.dao.PersonRepository;
 import kg.murat.internship.imdb.entities.units.Person;
 import kg.murat.internship.imdb.entities.units.PersonFactory;
 import kg.murat.internship.imdb.entities.units.User;
+import kg.murat.internship.imdb.services.ioServices.FileIOService;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,17 +23,18 @@ public class FilePersonRepositoryImpl extends AbstractRepository<Person> impleme
 
     @Override
     public Person getById(Long id) {
-        Person person;
-        try {
-            person = new PersonFactory().getPerson(ioService.readLine());
-        } catch (IOException e) {
-            person = DEFAULT_PERSON;
+        ioService = new FileIOService(FILE_TO_READ, FILE_TO_WRITE);
+        for (Person person : getAll()) {
+            if (person.getId().equals(id)) {
+                return person;
+            }
         }
-        return person;
+        return null;
     }
 
     @Override
     public List<Person> getAll() {
+        ioService = new FileIOService(FILE_TO_READ, FILE_TO_WRITE);
         List<Person> persons = new ArrayList<>();
         String next;
         try {
@@ -39,8 +42,9 @@ public class FilePersonRepositoryImpl extends AbstractRepository<Person> impleme
                 persons.add(new PersonFactory().getPerson(next));
             }
         } catch (IOException e) {
-            return persons;
+        } catch (ParseException e) {
         }
         return persons;
     }
+
 }

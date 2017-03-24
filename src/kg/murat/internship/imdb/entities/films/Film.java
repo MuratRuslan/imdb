@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * Created by Fujitsu on 20.03.2017.
  */
-public class Film {
+public abstract class Film {
     private Long id;
     private String title;
     private String language;

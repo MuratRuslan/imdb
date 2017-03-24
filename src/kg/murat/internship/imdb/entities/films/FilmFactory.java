@@ -17,7 +17,7 @@ public class FilmFactory {
     public Film getFilm(String filmInfo, Collection<Person> people) throws ParseException {
         String info[] = filmInfo.split("\\t");
 
-        if (info.length < Film.class.getFields().length) {
+        if (info.length < 8) {
             throw new ParseException("Attributes are not full", -1);
         }
 
@@ -88,7 +88,7 @@ public class FilmFactory {
             return film;
         }
 
-        throw new ParseException("No such type in films", -1);
+        return null;
     }
 
     private Person findPersonById(Long id, Collection<Person> people) {
@@ -97,7 +97,7 @@ public class FilmFactory {
                 return person;
             }
         }
-        throw null;
+        return null;
     }
 
     private Set<Person> getPersonsByIds(String idStrings, Collection<Person> people) {

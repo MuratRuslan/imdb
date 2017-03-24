@@ -16,7 +16,6 @@ public class FileIOService implements IOService {
         try {
             reader = new BufferedReader(new FileReader(new File(INPUT_FILE_PATH)));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
@@ -45,6 +44,7 @@ public class FileIOService implements IOService {
         while (null != (next = reader.readLine())) {
             return next;
         }
+        reader.close();
         return null;
     }
 

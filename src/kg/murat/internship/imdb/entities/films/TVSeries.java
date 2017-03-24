@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Created by Fujitsu on 20.03.2017.
  */
-public class TVSeries extends Film implements Writable {
+public class TVSeries extends Film implements Writable, Genreable, Series {
     private Date startDate;
     private Date endDate;
     private Integer numberOfSeasons;

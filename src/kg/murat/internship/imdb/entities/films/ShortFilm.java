@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Created by Fujitsu on 20.03.2017.
  */
-public class ShortFilm extends Film implements Releasable, Writable {
+public class ShortFilm extends Film implements Releasable, Writable, Genreable {
     private Date releaseDate;
     private Set<Writer> writers;
     private Set<String> genre;

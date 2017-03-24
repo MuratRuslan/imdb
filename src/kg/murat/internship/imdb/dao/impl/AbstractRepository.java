@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Fujitsu on 24.03.2017.
  */
-public class AbstractRepository<T> implements Repository<T> {
+public abstract class AbstractRepository<T> implements Repository<T> {
     protected final String FILE_TO_READ;
     protected final String FILE_TO_WRITE;
     protected IOService ioService;
@@ -20,13 +20,11 @@ public class AbstractRepository<T> implements Repository<T> {
         ioService = new FileIOService(FILE_TO_READ, FILE_TO_WRITE);
     }
 
-    @Override
-    public T getById(Long id) {
-        return null;
-    }
 
     @Override
-    public List<T> getAll() {
-        return null;
-    }
+    public abstract T getById(Long id);
+
+    @Override
+    public abstract List<T> getAll();
+
 }
