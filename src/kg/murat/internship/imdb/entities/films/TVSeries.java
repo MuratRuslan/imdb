@@ -1,5 +1,8 @@
 package kg.murat.internship.imdb.entities.films;
 
+import kg.murat.internship.imdb.entities.films.interfaces.Genreable;
+import kg.murat.internship.imdb.entities.films.interfaces.Series;
+import kg.murat.internship.imdb.entities.films.interfaces.Writable;
 import kg.murat.internship.imdb.entities.units.artists.Writer;
 
 import java.util.Date;

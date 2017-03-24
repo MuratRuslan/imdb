@@ -1,7 +1,7 @@
 package kg.murat.internship.imdb.dao.impl;
 
 import kg.murat.internship.imdb.dao.Repository;
-import kg.murat.internship.imdb.services.ioServices.FileIOService;
+import kg.murat.internship.imdb.services.ioServices.impl.FileIOService;
 import kg.murat.internship.imdb.services.ioServices.IOService;
 
 import java.util.List;

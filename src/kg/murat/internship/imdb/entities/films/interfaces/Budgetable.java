@@ -1,4 +1,4 @@
-package kg.murat.internship.imdb.entities.films;
+package kg.murat.internship.imdb.entities.films.interfaces;
 
 /**
  * Created by Fujitsu on 24.03.2017.

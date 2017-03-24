@@ -1,4 +1,4 @@
-package kg.murat.internship.imdb.entities.films;
+package kg.murat.internship.imdb.entities.films.interfaces;
 
 import kg.murat.internship.imdb.entities.units.artists.Writer;
 

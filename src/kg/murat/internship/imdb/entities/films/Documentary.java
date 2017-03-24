@@ -1,5 +1,7 @@
 package kg.murat.internship.imdb.entities.films;
 
+import kg.murat.internship.imdb.entities.films.interfaces.Releasable;
+
 import java.util.Date;
 
 /**

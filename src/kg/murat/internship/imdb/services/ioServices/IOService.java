@@ -8,7 +8,5 @@ import java.io.IOException;
 public interface IOService {
     void write(String message) throws IOException;
 
-    void log(String command, String message) throws IOException;
-
     String readLine() throws IOException;
 }

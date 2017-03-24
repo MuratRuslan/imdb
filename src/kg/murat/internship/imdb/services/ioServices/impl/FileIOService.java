@@ -1,4 +1,6 @@
-package kg.murat.internship.imdb.services.ioServices;
+package kg.murat.internship.imdb.services.ioServices.impl;
+
+import kg.murat.internship.imdb.services.ioServices.IOService;
 
 import java.io.*;
 
@@ -27,16 +29,7 @@ public class FileIOService implements IOService {
         printWriter.close();
     }
 
-    @Override
-    public void log(String command, String message) throws IOException {
-        PrintWriter printWriter = new PrintWriter(new FileWriter("output.txt", true));
-        printWriter.println(command);
-        printWriter.println();
-        printWriter.println(message);
-        printWriter.println();
-        printWriter.println("--------------------------------------------------");
-        printWriter.close();
-    }
+
 
     @Override
     public String readLine() throws IOException {

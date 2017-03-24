@@ -1,4 +1,6 @@
-package kg.murat.internship.imdb.services.ioServices;
+package kg.murat.internship.imdb.services.ioServices.impl;
+
+import kg.murat.internship.imdb.services.ioServices.IOService;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -19,10 +21,6 @@ public class DefaultConsoleIOService implements IOService {
         System.out.println(msg);
     }
 
-    @Override
-    public void log(String command, String message) throws IOException {
-        //ToDo
-    }
 
     @Override
     public String readLine() {

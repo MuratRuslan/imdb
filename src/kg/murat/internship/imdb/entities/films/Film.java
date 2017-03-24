@@ -4,6 +4,8 @@ import kg.murat.internship.imdb.entities.units.User;
 import kg.murat.internship.imdb.entities.units.artists.Director;
 import kg.murat.internship.imdb.entities.units.artists.Performer;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,6 +28,9 @@ public abstract class Film {
         this.language = language;
         this.country = country;
         this.length = length;
+        rating = new HashMap<>();
+        directors = new HashSet<>();
+        cast = new HashSet<>();
     }
 
 
