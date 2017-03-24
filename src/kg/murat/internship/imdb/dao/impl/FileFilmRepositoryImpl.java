@@ -6,6 +6,7 @@ import kg.murat.internship.imdb.entities.films.*;
 import kg.murat.internship.imdb.entities.units.Person;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -26,6 +27,8 @@ public class FileFilmRepositoryImpl extends AbstractRepository<Film> implements 
             film = new FilmFactory().getFilm(ioService.readLine(), personRepository.getAll());
         } catch (IOException e) {
             film = DEFAULT_FILM;
+        } catch (ParseException e) {
+            film = DEFAULT_FILM;
         }
         return film;
     }
@@ -40,6 +43,8 @@ public class FileFilmRepositoryImpl extends AbstractRepository<Film> implements 
                 films.add(new FilmFactory().getFilm(next, persons));
             }
         } catch (IOException e) {
+            return films;
+        } catch (ParseException e) {
             return films;
         }
         return films;

@@ -14,11 +14,11 @@ import java.util.*;
  */
 public class FilmFactory {
 
-    public Film getFilm(String filmInfo, Collection<Person> people) {
+    public Film getFilm(String filmInfo, Collection<Person> people) throws ParseException {
         String info[] = filmInfo.split("\\t");
 
         if (info.length < Film.class.getFields().length) {
-            return null;
+            throw new ParseException("Attributes are not full", -1);
         }
 
         String type = info[0];
@@ -40,12 +40,7 @@ public class FilmFactory {
             film.setBudget(budget);
             film.setDirectors(directors);
             film.setCast(performers);
-            Date date = new Date();
-            try {
-                date = DateFormat.getDateInstance().parse(info[9]);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            Date date = DateFormat.getDateInstance().parse(info[9]);
             film.setReleaseDate(date);
             return film;
         }
@@ -54,12 +49,7 @@ public class FilmFactory {
             ShortFilm film = new ShortFilm(id, title, language, country, length);
             Set<String> genre = new HashSet<>(Arrays.asList(info[8].split(",")));
             Set<Writer> writers = (Set) getPersonsByIds(info[10], people);
-            Date date;
-            try {
-                date = DateFormat.getDateInstance().parse(info[9]);
-            } catch (ParseException e) {
-                date = new Date();
-            }
+            Date date = DateFormat.getDateInstance().parse(info[9]);
             film.setWriters(writers);
             film.setReleaseDate(date);
             film.setGenre(genre);
@@ -70,13 +60,7 @@ public class FilmFactory {
 
         if (type.equals("Documentary:")) {
             Documentary film = new Documentary(id, title, language, country, length);
-            Date date;
-            try {
-                date = DateFormat.getDateInstance().parse(info[8]);
-            } catch (ParseException e) {
-                date = new Date();
-            }
-
+            Date date = DateFormat.getDateInstance().parse(info[8]);
             film.setReleaseDate(date);
             film.setDirectors(directors);
             film.setCast(performers);
@@ -91,13 +75,8 @@ public class FilmFactory {
             Integer episodes = Integer.parseInt(info[13]);
             Date startDate;
             Date endDate;
-            try {
-                startDate = DateFormat.getDateInstance().parse(info[10]);
-                endDate = DateFormat.getDateInstance().parse(info[11]);
-            } catch (ParseException e) {
-                startDate = new Date();
-                endDate = new Date();
-            }
+            startDate = DateFormat.getDateInstance().parse(info[10]);
+            endDate = DateFormat.getDateInstance().parse(info[11]);
             film.setGenre(genre);
             film.setWriters(writers);
             film.setStartDate(startDate);
@@ -109,7 +88,7 @@ public class FilmFactory {
             return film;
         }
 
-        throw new NoSuchElementException();
+        throw new ParseException("No such type in films", -1);
     }
 
     private Person findPersonById(Long id, Collection<Person> people) {

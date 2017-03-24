@@ -5,13 +5,15 @@ import kg.murat.internship.imdb.entities.units.artists.Writer;
 import kg.murat.internship.imdb.entities.units.artists.performers.Actor;
 import kg.murat.internship.imdb.entities.units.artists.performers.Actress;
 
+import java.text.ParseException;
+
 /**
  * Created by Fujitsu on 20.03.2017.
  */
 public class PersonFactory {
 
 
-    public Person getPerson(String personInfo) {
+    public Person getPerson(String personInfo) throws ParseException {
         String[] info = personInfo.split("\\t");
         String personType = info[0];
         Long id = Long.parseLong(info[1]);
@@ -41,6 +43,6 @@ public class PersonFactory {
             User person = new User(id, name, surname, country);
             return person;
         }
-        return new User(0L, "", "", "");
+        throw new ParseException("No such person type", -1);
     }
 }
