@@ -4,6 +4,10 @@ import kg.murat.internship.imdb.entities.films.*;
 import kg.murat.internship.imdb.entities.films.interfaces.Releasable;
 import kg.murat.internship.imdb.entities.films.interfaces.Writable;
 import kg.murat.internship.imdb.entities.units.Person;
+import kg.murat.internship.imdb.entities.units.artists.Director;
+import kg.murat.internship.imdb.entities.units.artists.Writer;
+import kg.murat.internship.imdb.entities.units.artists.performers.Actor;
+import kg.murat.internship.imdb.entities.units.artists.performers.Actress;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -54,18 +58,20 @@ public class ToStringService {
             Documentary documentaryFilm = (Documentary) film;
             String releaseDate = dateFormat.format(documentaryFilm.getReleaseDate());
             List<Person> ratedUsers = new ArrayList<>(film.getRating().keySet());
+            List<Person> directors = new ArrayList<>(film.getDirectors());
+            List<Person> stars = new ArrayList<>(film.getCast());
             return film.getTitle() + " (" + releaseDate + ")\n" +
-                    "Directors: " + personListNameAndSurnameToString((List) film.getDirectors()) + "\n" +
-                    "Stars: " + personListNameAndSurnameToString((List) film.getCast()) + "\n" +
+                    "Directors: " + personListNameAndSurnameToString(directors) + "\n" +
+                    "Stars: " + personListNameAndSurnameToString(stars) + "\n" +
                     ((ratedUsers.size() > 0) ? getAvgRating(film.getRating().values()) + "/10 from " + film.getRating().size() +
                             " " + personListNameAndSurnameToString(ratedUsers) : "Awaiting for votes");
         }
 
         if (film instanceof TVSeries) {
             TVSeries series = (TVSeries) film;
-            List<Person> writers = (List) (series).getWriters();
-            List<Person> directors = (List) film.getDirectors();
-            List<Person> stars = (List) film.getCast();
+            List<Person> writers = new ArrayList(((Writable) film).getWriters());
+            List<Person> directors = new ArrayList<>(film.getDirectors());
+            List<Person> stars = new ArrayList<>(film.getCast());
             List<Person> ratedUsers = new ArrayList<>(film.getRating().keySet());
             String startDate = dateFormat.format(series.getStartDate());
             String endDate = dateFormat.format(series.getEndDate());
@@ -132,5 +138,22 @@ public class ToStringService {
         }
         if(collection.isEmpty()) return 0f;
         return sum/collection.size();
+    }
+
+    public static String personToShortString(Collection<Person> collection) {
+        String result = "";
+        for(Person person : collection) {
+            result += "\n" + person.getName() + " " + person.getSurname();
+            if(person instanceof Director) {
+                result += " " + ((Director) person).getAgent();
+            }
+            if(person instanceof Writer) {
+                result += " " + ((Writer) person).getStyle();
+            }
+            if(person instanceof Actor) {
+                result += " " + ((Actor)person).getHeight() + " cm";
+            }
+        }
+        return result;
     }
 }

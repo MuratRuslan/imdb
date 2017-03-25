@@ -21,8 +21,8 @@ import java.util.Set;
 public class FileFilmRepositoryImpl extends AbstractRepository<Film> implements FilmRepository {
     private PersonRepository personRepository;
 
-    public FileFilmRepositoryImpl(String fileToRead, String fileToWrite, PersonRepository personRepository) {
-        super(fileToRead, fileToWrite);
+    public FileFilmRepositoryImpl(String fileToRead, PersonRepository personRepository) {
+        super(fileToRead);
         this.personRepository = personRepository;
     }
 
@@ -30,7 +30,7 @@ public class FileFilmRepositoryImpl extends AbstractRepository<Film> implements 
 
     @Override
     public Film getById(Long id) {
-        ioService = new FileIOService(FILE_TO_READ, FILE_TO_WRITE);
+        ioService = new FileIOService(FILE_TO_READ);
         for (Film film : getAll()) {
             if (film.getId().equals(id)) {
                 return film;
@@ -41,7 +41,7 @@ public class FileFilmRepositoryImpl extends AbstractRepository<Film> implements 
 
     @Override
     public List<Film> getAll() {
-        ioService = new FileIOService(FILE_TO_READ, FILE_TO_WRITE);
+        ioService = new FileIOService(FILE_TO_READ);
         List<Film> films = new ArrayList<>();
         List<Person> persons = personRepository.getAll();
         String next;

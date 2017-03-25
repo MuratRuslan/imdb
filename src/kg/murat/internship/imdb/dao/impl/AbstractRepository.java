@@ -11,13 +11,11 @@ import java.util.List;
  */
 public abstract class AbstractRepository<T> implements Repository<T> {
     protected final String FILE_TO_READ;
-    protected final String FILE_TO_WRITE;
     protected IOService ioService;
 
-    public AbstractRepository(String fileToRead, String fileToWrite) {
+    public AbstractRepository(String fileToRead) {
         this.FILE_TO_READ = fileToRead;
-        this.FILE_TO_WRITE = fileToWrite;
-        ioService = new FileIOService(FILE_TO_READ, FILE_TO_WRITE);
+        ioService = new FileIOService(FILE_TO_READ);
     }
 
 

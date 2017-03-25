@@ -1,79 +1,69 @@
-rate film
+LIST	ARTISTS	FROM	USA
 
-Film rated successfully
-Film type: FeatureFilm
-Film title: Silver_Linings_Playbook
+Directors:
+Kevin Bright Crane
+Woody Allen Allen
+Alfred Hitchcock Hitchcock
+Francis-Ford Coppola Coppola
+Ramin Bahrani Ramin
+Richard Linklater Richard
+David O.Russell Russell
+Quentin Tarantino Simpson-Morris
+Jack Bender Abrams
+David Fincher Fincher
 
---------------------------------------------------
-rate film
+Writers:
+David Crane Romance
+Marta Kauffman Romance
+Mihael Curtis Comedy
+John M.Hayes Mystery
+Cornell Woolrich Thriller
+Mario Puzo Crime
+Jenni Jenkins Drama
+Kim Krizan Romance
+Damon Lindelof Mystery
+Carlton Cuse Adventure
+Chuck Palahniuk Fiction
+Edward Kitsis 
+Jim Uhls Drama
+Adam Horowitz Fantasy
+Elizabeth Sarnoff Adventure
+Matthew Quick Comedy
 
-Film rated successfully
-Film type: FeatureFilm
-Film title: Biyeolhan_Geori
+Actors:
+Samuel L.Jackson 189 cm
+Robert DeNiro 177 cm
+Matt LeBlanc 178 cm
+James Stewart 191 cm
+Matthew Perry 183 cm
+David Schwimmer 185 cm
+Marlon Brando 175 cm
+Wendell Corey 187 cm
+Al Pacino 170 cm
+James Caan 176 cm
+Robert Duvall 174 cm
+Ethan Hawke 180 cm
+Edward Norton 183 cm
+Brad Pitt 180 cm
+Jorge Garcia 183 cm
+Tony Roberts 185 cm
+Matthew Fox 188 cm
+Josh Holloway 187 cm
+Bradley Cooper 185 cm
+John Travolta 188 cm
+Demetri Goritsas 183 cm
 
---------------------------------------------------
-rate film
-
-Film rated successfully
-Film type: FeatureFilm
-Film title: Silver_Linings_Playbook
-
---------------------------------------------------
-rate film
-
-Film rated successfully
-Film type: FeatureFilm
-Film title: Amelie
-
---------------------------------------------------
-rate film
-
-Film rated successfully
-Film type: FeatureFilm
-Film title: Silver_Linings_Playbook
-
---------------------------------------------------
-rate film
-
-Film rated successfully
-Film type: FeatureFilm
-Film title: Annie_Hall
-
---------------------------------------------------
-rate film
-
-This film was earlier rated
-
---------------------------------------------------
-list films by rate desc
-
-FeatureFilm:
-
-Amelie (2001) Ratings: 9.0/10 1 from 1 users
-Silver_Linings_Playbook (2013) Ratings: 9.0/10 3 from 3 users
-Biyeolhan_Geori (2006) Ratings: 9.0/10 1 from 1 users
-Annie_Hall (1977) Ratings: 9.0/10 1 from 1 users
-Kok_salkyn (2001) Ratings: 0.0/10 0 from 0 users
-Fight_night (2017) Ratings: 0.0/10 0 from 0 users
-The_Godfather (1973) Ratings: 0.0/10 0 from 0 users
-Before_Sunrise (1995) Ratings: 0.0/10 0 from 0 users
-Rear_Window (1956) Ratings: 0.0/10 0 from 0 users
-Pulp_Fiction (1994) Ratings: 0.0/10 0 from 0 users
-La_meglio_gioventu (2003) Ratings: 0.0/10 0 from 0 users
-
-ShortFilm:
-
-Plastic_Bag (2009) Ratings: 0.0/10 0 from 0 users
-
-Documentary:
-
-Gelibolu (2005) Ratings: 0.0/10 0 from 0 users
-5_Broken_Cameras (2013) Ratings: 0.0/10 0 from 0 users
-
-TVSeries:
-
-Friends (1994-2004) Ratings: 0.0/10 0 from 0 users
-Lost (2004-2010) Ratings: 0.0/10 0 from 0 users
-Coupling (2000-2004) Ratings: 0.0/10 0 from 0 users
+Actresses:
+Julia Stiles
+Amanda Plummer
+Diane Keaton
+Uma Thurman
+Jennifer Aniston
+Courteney Cox
+Lisa Kudrow
+Grace Kelly
+Elizabeth Mitchell
+Barbara Weetman
+Jennifer Lawrence
 
 --------------------------------------------------

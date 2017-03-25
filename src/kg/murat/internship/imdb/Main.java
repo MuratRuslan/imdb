@@ -20,8 +20,8 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        PersonRepository personRepository = new FilePersonRepositoryImpl("people.txt", "people.txt");
-        FilmRepository filmRepository = new FileFilmRepositoryImpl("films.txt", "films.txt", personRepository);
+        PersonRepository personRepository = new FilePersonRepositoryImpl("people.txt");
+        FilmRepository filmRepository = new FileFilmRepositoryImpl("films.txt", personRepository);
         FeatureFilm film = (FeatureFilm) filmRepository.getById(109L);
         FeatureFilm featureFilm = new FeatureFilm(115L, "Fight_night", "Eng", "USA", 181);
         featureFilm.setBudget(23424L);
@@ -38,10 +38,6 @@ public class Main {
         for (Film fil : all) {
             System.out.println(fil.getId());
         }
-        Logger logger = new FileLogger("output.txt");
-        FilmService filmService = new FilmServiceImpl(filmRepository, personRepository, logger);
-        filmService.listAllTVSeries("ADD\tFEATUREFILM\t115\tFight_Club\tEnglish\t463\t139\tUSA\t466,467,468\tDrama\t10.12.1999\t464,465\t63000000");
-        filmService.rateFilm("slkdfjlkdsf", 480L, 115L, 9);
-        filmService.rateFilm("woeifj", 480L, 115L, 9);
+
     }
 }

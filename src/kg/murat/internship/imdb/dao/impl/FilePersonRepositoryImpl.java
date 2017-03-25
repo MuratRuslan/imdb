@@ -16,13 +16,13 @@ import java.util.List;
  */
 public class FilePersonRepositoryImpl extends AbstractRepository<Person> implements PersonRepository {
 
-    public FilePersonRepositoryImpl(String fileToRead, String fileToWrite) {
-        super(fileToRead, fileToWrite);
+    public FilePersonRepositoryImpl(String fileToRead) {
+        super(fileToRead);
     }
 
     @Override
     public Person getById(Long id) {
-        ioService = new FileIOService(FILE_TO_READ, FILE_TO_WRITE);
+        ioService = new FileIOService(FILE_TO_READ);
         for (Person person : getAll()) {
             if (person.getId().equals(id)) {
                 return person;
@@ -33,7 +33,7 @@ public class FilePersonRepositoryImpl extends AbstractRepository<Person> impleme
 
     @Override
     public List<Person> getAll() {
-        ioService = new FileIOService(FILE_TO_READ, FILE_TO_WRITE);
+        ioService = new FileIOService(FILE_TO_READ);
         List<Person> persons = new ArrayList<>();
         String next;
         try {

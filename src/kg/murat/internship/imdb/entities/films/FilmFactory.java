@@ -18,7 +18,7 @@ public class FilmFactory {
         String info[] = filmInfo.split("\\t");
 
         if (info.length < 8) {
-            throw new ParseException("Attributes are not full", -1);
+            return null;
         }
 
         String type = info[0];

@@ -8,6 +8,7 @@ import kg.murat.internship.imdb.entities.units.Person;
 import kg.murat.internship.imdb.entities.units.User;
 import kg.murat.internship.imdb.services.ioServices.Logger;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -31,10 +32,13 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public void rateFilm(String command, Long userId, Long filmId, Integer rate) {
+    public void rateFilm(String command) {
+        String[] split = command.split("\\t");
+        Long userId = Long.parseLong(split[1]);
+        Long filmId = Long.parseLong(split[2]);
+        Integer rate = Integer.parseInt(split[3]);
         Person person = getPersonById(userId);
         Film film = getFilmById(filmId);
-
         if (!(person instanceof User) || null == film) {
             logger.log(command, COMMAND_FAILED_MSG + "\n" +
                     "User ID: " + userId + "\n" +
@@ -54,7 +58,11 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public void editRatedFilm(String command, Long userId, Long filmId, Integer rate) {
+    public void editRatedFilm(String command) {
+        String[] split = command.split("\\t");
+        Long userId = Long.parseLong(split[2]);
+        Long filmId = Long.parseLong(split[3]);
+        Integer rate = Integer.parseInt(split[4]);
         Person person = getPersonById(userId);
         Film film = getFilmById(filmId);
 
@@ -72,7 +80,10 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public void removeRate(String command, Long userId, Long filmId) {
+    public void removeRate(String command) {
+        String[] split = command.split("\\t");
+        Long userId = Long.parseLong(split[2]);
+        Long filmId = Long.parseLong(split[3]);
         Person person = getPersonById(userId);
         Film film = getFilmById(filmId);
 
@@ -88,27 +99,35 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public void addFeatureFilm(String command, FeatureFilm featureFilm) {
-        Film film = filmRepository.getById(featureFilm.getId());
+    public void addFeatureFilm(String command) {
+        String featureFilmString = "FeatureFilm:" + command.substring(15, command.length());
+        FeatureFilm film;
+        try {
+            film = (FeatureFilm) new FilmFactory().getFilm(featureFilmString, personSet);
+        } catch (ParseException e) {
+            film = null;
+        }
 
-        if (null != film || null == featureFilm.getWriters() || null == featureFilm.getDirectors() ||
-                null == featureFilm.getCast()) {
+        if (filmSet.contains(film) || null == film.getWriters() || null == film.getDirectors() ||
+                null == film.getCast()) {
             logger.log(command, COMMAND_FAILED_MSG + "\n" +
-                    "Film ID: " + featureFilm.getId() + "\n" +
-                    "Film title " + featureFilm.getTitle());
+                    "Film ID: " + film.getId() + "\n" +
+                    "Film title " + film.getTitle());
             return;
         }
 
-        filmRepository.addFilm(featureFilm);
-        filmSet.add(featureFilm);
+        filmRepository.addFilm(film);
+        filmSet.add(film);
 
         logger.log(command, "FeatureFilm added successfully\n" +
-                "Film ID: " + featureFilm.getId() + "\n" +
-                "Film title: " + featureFilm.getTitle());
+                "Film ID: " + film.getId() + "\n" +
+                "Film title: " + film.getTitle());
     }
 
     @Override
-    public Film viewFilm(String command, Long filmId) {
+    public Film viewFilm(String command) {
+        String[] split = command.split("\\t");
+        Long filmId = Long.parseLong(split[1]);
         Film film = getFilmById(filmId);
 
         if (null == film) {
@@ -122,7 +141,9 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public List<Film> listFilmsByCountry(String command, String country) {
+    public List<Film> listFilmsByCountry(String command) {
+        String[] split = command.split("\\t");
+        String country = split[4];
         List<Film> films = new ArrayList<>();
         String result = "";
 
@@ -140,12 +161,14 @@ public class FilmServiceImpl implements FilmService {
             return Collections.emptyList();
         }
 
-        logger.log(command, result);
+        logger.log(command, result.trim());
         return films;
     }
 
     @Override
-    public List<Film> listFilmsUserRated(String command, Long userID) {
+    public List<Film> listFilmsUserRated(String command) {
+        String[] split = command.split("\\t");
+        Long userID = Long.parseLong(split[2]);
         List<Film> films = new ArrayList<>();
         Person person = getPersonById(userID);
         String result = "";
@@ -163,7 +186,7 @@ public class FilmServiceImpl implements FilmService {
             return Collections.emptyList();
         }
 
-        logger.log(command, result);
+        logger.log(command, result.trim());
         return films;
     }
 
@@ -188,12 +211,14 @@ public class FilmServiceImpl implements FilmService {
             return Collections.emptyList();
         }
 
-        logger.log(command, result);
+        logger.log(command, result.trim());
         return tvSeries;
     }
 
     @Override
-    public List<Film> listAllFilmsBeforeAfter(String command, Integer year) {
+    public List<Film> listAllFilmsBeforeAfter(String command) {
+        String[] split = command.split("\\t");
+        Integer year = Integer.parseInt(split[3]);
         List<Film> filmsBefore = new ArrayList<>();
         List<Film> filmsAfter = new ArrayList<>();
         String beforeAfter = command.split("\\t")[2];
@@ -222,10 +247,10 @@ public class FilmServiceImpl implements FilmService {
         }
 
         if (beforeAfter.equalsIgnoreCase("before")) {
-            logger.log(command, resultBefore);
+            logger.log(command, resultBefore.trim());
             return filmsBefore;
         }
-        logger.log(command, resultAfter);
+        logger.log(command, resultAfter.trim());
         return filmsAfter;
     }
 
@@ -237,26 +262,26 @@ public class FilmServiceImpl implements FilmService {
         Set<Film> tvSeries = new TreeSet<>(new FilmComparator().reversed());
 
         for (Film film : filmSet) {
-            if(film instanceof FeatureFilm) {
+            if (film instanceof FeatureFilm) {
                 featureFilms.add(film);
             }
-            if(film instanceof ShortFilm) {
+            if (film instanceof ShortFilm) {
                 shortFilms.add(film);
             }
-            if(film instanceof Documentary) {
+            if (film instanceof Documentary) {
                 documentaryFilms.add(film);
             }
-            if(film instanceof TVSeries) {
+            if (film instanceof TVSeries) {
                 tvSeries.add(film);
             }
         }
 
-        String result = "FeatureFilm:\n"+ToStringService.filmTitleYearRatingToString(featureFilms) +
-                "\n\nShortFilm:\n" + ToStringService.filmTitleYearRatingToString(shortFilms) +
-                "\n\nDocumentary:\n" + ToStringService.filmTitleYearRatingToString(documentaryFilms) +
-                "\n\nTVSeries:\n" + ToStringService.filmTitleYearRatingToString(tvSeries);
+        String result = "FeatureFilm:" + ToStringService.filmTitleYearRatingToString(featureFilms) +
+                "\n\nShortFilm:" + ToStringService.filmTitleYearRatingToString(shortFilms) +
+                "\n\nDocumentary:" + ToStringService.filmTitleYearRatingToString(documentaryFilms) +
+                "\n\nTVSeries:" + ToStringService.filmTitleYearRatingToString(tvSeries);
 
-        logger.log(command, result);
+        logger.log(command, result.trim());
     }
 
     private Film getFilmById(Long id) {

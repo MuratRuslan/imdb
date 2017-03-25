@@ -1,6 +1,5 @@
 package kg.murat.internship.imdb.services;
 
-import kg.murat.internship.imdb.entities.films.FeatureFilm;
 import kg.murat.internship.imdb.entities.films.Film;
 import kg.murat.internship.imdb.entities.films.TVSeries;
 
@@ -10,14 +9,24 @@ import java.util.List;
  * Created by Fujitsu on 24.03.2017.
  */
 public interface FilmService {
-    void rateFilm(String command, Long userId, Long filmId, Integer rate);
-    void editRatedFilm(String command, Long userId, Long filmId, Integer rate);
-    void removeRate(String command, Long userId, Long filmId);
-    void addFeatureFilm(String command, FeatureFilm featureFilm);
-    Film viewFilm(String command, Long id);
-    List<Film> listFilmsByCountry(String command, String country);
-    List<Film> listFilmsUserRated(String command, Long userID);
+
+    void rateFilm(String command);
+
+    void editRatedFilm(String command);
+
+    void removeRate(String command);
+
+    void addFeatureFilm(String command);
+
+    Film viewFilm(String command);
+
+    List<Film> listFilmsByCountry(String command);
+
+    List<Film> listFilmsUserRated(String command);
+
     List<TVSeries> listAllTVSeries(String command);
-    List<Film> listAllFilmsBeforeAfter(String command, Integer year);
+
+    List<Film> listAllFilmsBeforeAfter(String command);
+
     void listAllSortedFilmsByRateDesc(String command);
 }
