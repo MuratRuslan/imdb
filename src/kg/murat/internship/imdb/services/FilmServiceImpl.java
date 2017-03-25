@@ -2,9 +2,7 @@ package kg.murat.internship.imdb.services;
 
 import kg.murat.internship.imdb.dao.FilmRepository;
 import kg.murat.internship.imdb.dao.PersonRepository;
-import kg.murat.internship.imdb.entities.films.FeatureFilm;
-import kg.murat.internship.imdb.entities.films.Film;
-import kg.murat.internship.imdb.entities.films.TVSeries;
+import kg.murat.internship.imdb.entities.films.*;
 import kg.murat.internship.imdb.entities.films.interfaces.Releasable;
 import kg.murat.internship.imdb.entities.units.Person;
 import kg.murat.internship.imdb.entities.units.User;
@@ -60,7 +58,7 @@ public class FilmServiceImpl implements FilmService {
         Person person = getPersonById(userId);
         Film film = getFilmById(filmId);
 
-        if (!(person instanceof User) || null == film  || !film.getRating().containsKey(person)) {
+        if (!(person instanceof User) || null == film || !film.getRating().containsKey(person)) {
             logger.log(command, COMMAND_FAILED_MSG + "\n" +
                     "User ID: " + userId + "\n" +
                     "Film ID: " + filmId);
@@ -223,7 +221,7 @@ public class FilmServiceImpl implements FilmService {
             return Collections.emptyList();
         }
 
-        if(beforeAfter.equalsIgnoreCase("before")) {
+        if (beforeAfter.equalsIgnoreCase("before")) {
             logger.log(command, resultBefore);
             return filmsBefore;
         }
@@ -232,17 +230,38 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Set<Film> listAllSortedFilmsByRateDesc(String command, Integer rate) {
+    public void listAllSortedFilmsByRateDesc(String command) {
+        Set<Film> featureFilms = new TreeSet<>(new FilmComparator().reversed());
+        Set<Film> shortFilms = new TreeSet<>(new FilmComparator().reversed());
+        Set<Film> documentaryFilms = new TreeSet<>(new FilmComparator().reversed());
+        Set<Film> tvSeries = new TreeSet<>(new FilmComparator().reversed());
 
-        for(Film film : filmRepository.getAll()) {
-
+        for (Film film : filmSet) {
+            if(film instanceof FeatureFilm) {
+                featureFilms.add(film);
+            }
+            if(film instanceof ShortFilm) {
+                shortFilms.add(film);
+            }
+            if(film instanceof Documentary) {
+                documentaryFilms.add(film);
+            }
+            if(film instanceof TVSeries) {
+                tvSeries.add(film);
+            }
         }
-        return null;
+
+        String result = "FeatureFilm:\n"+ToStringService.filmTitleYearRatingToString(featureFilms) +
+                "\n\nShortFilm:\n" + ToStringService.filmTitleYearRatingToString(shortFilms) +
+                "\n\nDocumentary:\n" + ToStringService.filmTitleYearRatingToString(documentaryFilms) +
+                "\n\nTVSeries:\n" + ToStringService.filmTitleYearRatingToString(tvSeries);
+
+        logger.log(command, result);
     }
 
     private Film getFilmById(Long id) {
-        for(Film film : filmSet) {
-            if(film.getId().equals(id)) {
+        for (Film film : filmSet) {
+            if (film.getId().equals(id)) {
                 return film;
             }
         }
@@ -250,11 +269,25 @@ public class FilmServiceImpl implements FilmService {
     }
 
     private Person getPersonById(Long id) {
-        for(Person person : personSet) {
-            if(person.getId().equals(id)) {
+        for (Person person : personSet) {
+            if (person.getId().equals(id)) {
                 return person;
             }
         }
         return null;
+    }
+
+
+    private static class FilmComparator implements Comparator<Film> {
+
+        @Override
+        public int compare(Film film1, Film film2) {
+            float rating1 = ToStringService.getAvgRating(film1.getRating().values());
+            float rating2 = ToStringService.getAvgRating(film2.getRating().values());
+            if (rating1 > rating2) {
+                return 1;
+            }
+            return -1;
+        }
     }
 }

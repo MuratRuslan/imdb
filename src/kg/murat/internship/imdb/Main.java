@@ -23,7 +23,6 @@ public class Main {
         PersonRepository personRepository = new FilePersonRepositoryImpl("people.txt", "people.txt");
         FilmRepository filmRepository = new FileFilmRepositoryImpl("films.txt", "films.txt", personRepository);
         FeatureFilm film = (FeatureFilm) filmRepository.getById(109L);
-        System.out.println(film.getId()+ "\t" + film.getTitle());
         FeatureFilm featureFilm = new FeatureFilm(115L, "Fight_night", "Eng", "USA", 181);
         featureFilm.setBudget(23424L);
         featureFilm.setReleaseDate(new Date());

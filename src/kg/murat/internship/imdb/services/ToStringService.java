@@ -6,10 +6,7 @@ import kg.murat.internship.imdb.entities.films.interfaces.Writable;
 import kg.murat.internship.imdb.entities.units.Person;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Fujitsu on 24.03.2017.
@@ -49,7 +46,7 @@ public class ToStringService {
                     "Writers: " + personListNameAndSurnameToString(writers) + "\n" +
                     "Directors: " + personListNameAndSurnameToString(directors) + "\n" +
                     "Stars: " + personListNameAndSurnameToString(stars) + "\n" +
-                    ((ratedUsers.size() > 0) ? film.getRating() + "/10 from " + film.getRating().size() +
+                    ((ratedUsers.size() > 0) ? getAvgRating(film.getRating().values()) + "/10 from " + film.getRating().size() +
                             " " + personListNameAndSurnameToString(ratedUsers) : "Awaiting for votes");
         }
 
@@ -60,7 +57,7 @@ public class ToStringService {
             return film.getTitle() + " (" + releaseDate + ")\n" +
                     "Directors: " + personListNameAndSurnameToString((List) film.getDirectors()) + "\n" +
                     "Stars: " + personListNameAndSurnameToString((List) film.getCast()) + "\n" +
-                    ((ratedUsers.size() > 0) ? film.getRating() + "/10 from " + film.getRating().size() +
+                    ((ratedUsers.size() > 0) ? getAvgRating(film.getRating().values()) + "/10 from " + film.getRating().size() +
                             " " + personListNameAndSurnameToString(ratedUsers) : "Awaiting for votes");
         }
 
@@ -78,7 +75,7 @@ public class ToStringService {
                     "Writers: " + personListNameAndSurnameToString(writers) + "\n" +
                     "Directors: " + personListNameAndSurnameToString(directors) + "\n" +
                     "Stars: " + personListNameAndSurnameToString(stars) + "\n" +
-                    ((ratedUsers.size() > 0) ? film.getRating() + "/10 from " + film.getRating().size() +
+                    ((ratedUsers.size() > 0) ? getAvgRating(film.getRating().values()) + "/10 from " + film.getRating().size() +
                             " " + personListNameAndSurnameToString(ratedUsers) : "Awaiting for votes");
         }
         return "";
@@ -100,8 +97,40 @@ public class ToStringService {
         if(film instanceof Releasable) {
             result += " (" + dateFormat.format(((Releasable) film).getReleaseDate()) + ")";
         }
-        result += "\n" + film.getLength() + "min\n" +
+        result += "\n" + film.getLength() + " min\n" +
                 "Language: " + film.getLanguage();
         return result;
+    }
+
+    public static String filmTitleYearRatingToString(Collection<Film> films) {
+        Calendar calendar1 = new GregorianCalendar();
+        Calendar calendar2 = new GregorianCalendar();
+        String result = "";
+        for (Film film : films) {
+            if(film instanceof TVSeries) {
+                calendar1.setTime(((TVSeries) film).getStartDate());
+                calendar2.setTime(((TVSeries) film).getEndDate());
+                result += "\n" + film.getTitle() + " (" + calendar1.get(Calendar.YEAR) + "-" +
+                        calendar2.get(Calendar.YEAR) + ") Ratings: " + getAvgRating(film.getRating().values()) +
+                        "/10 " + film.getRating().size() + " from " +
+                        film.getRating().size() + " users";
+                continue;
+            }
+            calendar1.setTime(((Releasable)film).getReleaseDate());
+            result += "\n" + film.getTitle() + " (" + calendar1.get(Calendar.YEAR) +
+                    ") Ratings: " + getAvgRating(film.getRating().values()) +
+                    "/10 " + film.getRating().size() + " from " +
+                    film.getRating().size() + " users";
+        }
+        return result;
+    }
+
+    public static float getAvgRating(Collection<Integer> collection) {
+        int sum = 0;
+        for(Integer rate : collection) {
+            sum += rate;
+        }
+        if(collection.isEmpty()) return 0f;
+        return sum/collection.size();
     }
 }

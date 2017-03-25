@@ -1,85 +1,79 @@
-ADD	FEATUREFILM	115	Fight_Club	English	463	139	USA	466,467,468	Drama	10.12.1999	464,465	63000000
-
-Coupling (2000-2004)
-4 seasons and 28 episodes
-
-Lost (2004-2010)
-6 seasons and 121 episodes
-
-Friends (1994-2004)
-10 seasons and 236 episodes
-
-
-
---------------------------------------------------
-slkdfjlkdsf
+rate film
 
 Film rated successfully
 Film type: FeatureFilm
-Film title: Fight_night
+Film title: Silver_Linings_Playbook
 
 --------------------------------------------------
-LIST	FEATUREFILMS	AFTER	1995
-
-Film title: Plastic_Bag (2009)
-18min
-Language: English
-
-Film title: 5_Broken_Cameras (2013)
-94min
-Language: Hebrew
-
-Film title: Gelibolu (2005)
-114min
-Language: Turkish
-
-Film title: Biyeolhan_Geori (2006)
-141min
-Language: Korean
-
-Film title: Silver_Linings_Playbook (2013)
-122min
-Language: English
-
-Film title: Fight_night (2017)
-181min
-Language: Eng
-
-
-
---------------------------------------------------
-list films by country
-
-Film title: Coupling
-30 min
-Language: English
-
-
-
---------------------------------------------------
-ADD	FEATUREFILM	115	Fight_Club	English	463	139	USA	466,467,468	Drama	10.12.1999	464,465	63000000
-
-Coupling (2000-2004)
-4 seasons and 28 episodes
-
-Lost (2004-2010)
-6 seasons and 121 episodes
-
-Friends (1994-2004)
-10 seasons and 236 episodes
-
-
-
---------------------------------------------------
-slkdfjlkdsf
+rate film
 
 Film rated successfully
 Film type: FeatureFilm
-Film title: Fight_night
+Film title: Biyeolhan_Geori
 
 --------------------------------------------------
-woeifj
+rate film
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Silver_Linings_Playbook
+
+--------------------------------------------------
+rate film
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Amelie
+
+--------------------------------------------------
+rate film
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Silver_Linings_Playbook
+
+--------------------------------------------------
+rate film
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Annie_Hall
+
+--------------------------------------------------
+rate film
 
 This film was earlier rated
+
+--------------------------------------------------
+list films by rate desc
+
+FeatureFilm:
+
+Amelie (2001) Ratings: 9.0/10 1 from 1 users
+Silver_Linings_Playbook (2013) Ratings: 9.0/10 3 from 3 users
+Biyeolhan_Geori (2006) Ratings: 9.0/10 1 from 1 users
+Annie_Hall (1977) Ratings: 9.0/10 1 from 1 users
+Kok_salkyn (2001) Ratings: 0.0/10 0 from 0 users
+Fight_night (2017) Ratings: 0.0/10 0 from 0 users
+The_Godfather (1973) Ratings: 0.0/10 0 from 0 users
+Before_Sunrise (1995) Ratings: 0.0/10 0 from 0 users
+Rear_Window (1956) Ratings: 0.0/10 0 from 0 users
+Pulp_Fiction (1994) Ratings: 0.0/10 0 from 0 users
+La_meglio_gioventu (2003) Ratings: 0.0/10 0 from 0 users
+
+ShortFilm:
+
+Plastic_Bag (2009) Ratings: 0.0/10 0 from 0 users
+
+Documentary:
+
+Gelibolu (2005) Ratings: 0.0/10 0 from 0 users
+5_Broken_Cameras (2013) Ratings: 0.0/10 0 from 0 users
+
+TVSeries:
+
+Friends (1994-2004) Ratings: 0.0/10 0 from 0 users
+Lost (2004-2010) Ratings: 0.0/10 0 from 0 users
+Coupling (2000-2004) Ratings: 0.0/10 0 from 0 users
 
 --------------------------------------------------
