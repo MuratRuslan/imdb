@@ -24,7 +24,7 @@ public class Main {
         FilmRepository filmRepository = new FileFilmRepositoryImpl("films.txt", "films.txt", personRepository);
         FeatureFilm film = (FeatureFilm) filmRepository.getById(109L);
         System.out.println(film.getId()+ "\t" + film.getTitle());
-        FeatureFilm featureFilm = new FeatureFilm(116L, "Fight_night", "Eng", "USA", 181);
+        FeatureFilm featureFilm = new FeatureFilm(115L, "Fight_night", "Eng", "USA", 181);
         featureFilm.setBudget(23424L);
         featureFilm.setReleaseDate(new Date());
         Set<String> genre = new HashSet<>();
@@ -41,6 +41,8 @@ public class Main {
         }
         Logger logger = new FileLogger("output.txt");
         FilmService filmService = new FilmServiceImpl(filmRepository, personRepository, logger);
-        filmService.rateFilm(470L, 100L, 9);
+        filmService.listAllTVSeries("ADD\tFEATUREFILM\t115\tFight_Club\tEnglish\t463\t139\tUSA\t466,467,468\tDrama\t10.12.1999\t464,465\t63000000");
+        filmService.rateFilm("slkdfjlkdsf", 480L, 115L, 9);
+        filmService.rateFilm("woeifj", 480L, 115L, 9);
     }
 }

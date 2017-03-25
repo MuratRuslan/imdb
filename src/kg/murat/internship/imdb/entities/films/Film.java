@@ -97,4 +97,20 @@ public abstract class Film {
     public void setCast(Set<Performer> cast) {
         this.cast = cast;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Film)) return false;
+
+        Film film = (Film) o;
+
+        return id.equals(film.id);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

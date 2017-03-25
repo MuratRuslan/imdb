@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Fujitsu on 24.03.2017.
@@ -38,9 +39,9 @@ public class ToStringService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
 
         if (film instanceof FeatureFilm || film instanceof ShortFilm) {
-            List<Person> writers = (List) ((Writable) film).getWriters();
-            List<Person> directors = (List) film.getDirectors();
-            List<Person> stars = (List) film.getCast();
+            List<Person> writers = new ArrayList(((Writable) film).getWriters());
+            List<Person> directors = new ArrayList<>(film.getDirectors());
+            List<Person> stars = new ArrayList<>(film.getCast());
             List<Person> ratedUsers = new ArrayList<>();
             ratedUsers.addAll(film.getRating().keySet());
             String releaseDate = dateFormat.format(((Releasable) film).getReleaseDate());
@@ -90,6 +91,17 @@ public class ToStringService {
         for (int i = 1; i < persons.size(); i++) {
             result += ", " + persons.get(i).getName() + " " + persons.get(i).getSurname();
         }
+        return result;
+    }
+
+    public static String filmListShortInfoToString(Film film) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+        String result = "Film title: " + film.getTitle();
+        if(film instanceof Releasable) {
+            result += " (" + dateFormat.format(((Releasable) film).getReleaseDate()) + ")";
+        }
+        result += "\n" + film.getLength() + "min\n" +
+                "Language: " + film.getLanguage();
         return result;
     }
 }
