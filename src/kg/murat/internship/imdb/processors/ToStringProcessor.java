@@ -1,4 +1,4 @@
-package kg.murat.internship.imdb.services;
+package kg.murat.internship.imdb.processors;
 
 import kg.murat.internship.imdb.entities.films.*;
 import kg.murat.internship.imdb.entities.films.interfaces.Releasable;
@@ -7,7 +7,6 @@ import kg.murat.internship.imdb.entities.units.Person;
 import kg.murat.internship.imdb.entities.units.artists.Director;
 import kg.murat.internship.imdb.entities.units.artists.Writer;
 import kg.murat.internship.imdb.entities.units.artists.performers.Actor;
-import kg.murat.internship.imdb.entities.units.artists.performers.Actress;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -15,8 +14,8 @@ import java.util.*;
 /**
  * Created by Fujitsu on 24.03.2017.
  */
-public class ToStringService {
-    public static String personListToString(Collection<Person> persons) {
+public class ToStringProcessor {
+    public static String personsToString(Collection<Person> persons) {
         List<Person> personList = new ArrayList<>(persons);
         String result = (persons.size() > 0) ? personList.get(0).getId().toString() : "";
         if (persons.size() > 1) {
@@ -27,7 +26,7 @@ public class ToStringService {
         return result;
     }
 
-    public static String listToString(Collection<String> collection) {
+    public static String collectionStringsToString(Collection<String> collection) {
         List<String> list = new ArrayList<>(collection);
         String result = (list.size() > 0) ? list.get(0) : "";
         for (int i = 1; i < list.size(); i++) {
@@ -47,11 +46,11 @@ public class ToStringService {
             ratedUsers.addAll(film.getRating().keySet());
             String releaseDate = dateFormat.format(((Releasable) film).getReleaseDate());
             return film.getTitle() + " (" + releaseDate + ")\n" +
-                    "Writers: " + personListNameAndSurnameToString(writers) + "\n" +
-                    "Directors: " + personListNameAndSurnameToString(directors) + "\n" +
-                    "Stars: " + personListNameAndSurnameToString(stars) + "\n" +
+                    "Writers: " + personsNameAndSurnameToString(writers) + "\n" +
+                    "Directors: " + personsNameAndSurnameToString(directors) + "\n" +
+                    "Stars: " + personsNameAndSurnameToString(stars) + "\n" +
                     ((ratedUsers.size() > 0) ? getAvgRating(film.getRating().values()) + "/10 from " + film.getRating().size() +
-                            " " + personListNameAndSurnameToString(ratedUsers) : "Awaiting for votes");
+                            " " + personsNameAndSurnameToString(ratedUsers) : "Awaiting for votes");
         }
 
         if (film instanceof Documentary) {
@@ -61,10 +60,10 @@ public class ToStringService {
             List<Person> directors = new ArrayList<>(film.getDirectors());
             List<Person> stars = new ArrayList<>(film.getCast());
             return film.getTitle() + " (" + releaseDate + ")\n" +
-                    "Directors: " + personListNameAndSurnameToString(directors) + "\n" +
-                    "Stars: " + personListNameAndSurnameToString(stars) + "\n" +
+                    "Directors: " + personsNameAndSurnameToString(directors) + "\n" +
+                    "Stars: " + personsNameAndSurnameToString(stars) + "\n" +
                     ((ratedUsers.size() > 0) ? getAvgRating(film.getRating().values()) + "/10 from " + film.getRating().size() +
-                            " " + personListNameAndSurnameToString(ratedUsers) : "Awaiting for votes");
+                            " " + personsNameAndSurnameToString(ratedUsers) : "Awaiting for votes");
         }
 
         if (film instanceof TVSeries) {
@@ -77,17 +76,17 @@ public class ToStringService {
             String endDate = dateFormat.format(series.getEndDate());
             return film.getTitle() + " (" + startDate + "-" + endDate + ")\n" +
                     series.getNumberOfSeasons() + " seasons, " + series.getNumberOfEpisodes() + " episodes\n" +
-                    listToString(series.getGenre()) + "\n" +
-                    "Writers: " + personListNameAndSurnameToString(writers) + "\n" +
-                    "Directors: " + personListNameAndSurnameToString(directors) + "\n" +
-                    "Stars: " + personListNameAndSurnameToString(stars) + "\n" +
+                    collectionStringsToString(series.getGenre()) + "\n" +
+                    "Writers: " + personsNameAndSurnameToString(writers) + "\n" +
+                    "Directors: " + personsNameAndSurnameToString(directors) + "\n" +
+                    "Stars: " + personsNameAndSurnameToString(stars) + "\n" +
                     ((ratedUsers.size() > 0) ? getAvgRating(film.getRating().values()) + "/10 from " + film.getRating().size() +
-                            " " + personListNameAndSurnameToString(ratedUsers) : "Awaiting for votes");
+                            " " + personsNameAndSurnameToString(ratedUsers) : "Awaiting for votes");
         }
         return "";
     }
 
-    public static String personListNameAndSurnameToString(List<Person> persons) {
+    public static String personsNameAndSurnameToString(List<Person> persons) {
         String result = "";
         if (persons.size() > 0)
             result = persons.get(0).getName() + " " + persons.get(0).getSurname();
@@ -97,10 +96,10 @@ public class ToStringService {
         return result;
     }
 
-    public static String filmListShortInfoToString(Film film) {
+    public static String filmShortInfoToString(Film film) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
         String result = "Film title: " + film.getTitle();
-        if(film instanceof Releasable) {
+        if (film instanceof Releasable) {
             result += " (" + dateFormat.format(((Releasable) film).getReleaseDate()) + ")";
         }
         result += "\n" + film.getLength() + " min\n" +
@@ -108,21 +107,22 @@ public class ToStringService {
         return result;
     }
 
-    public static String filmTitleYearRatingToString(Collection<Film> films) {
+    public static String filmsTitleYearRatingToString(Collection<Film> films) {
         Calendar calendar1 = new GregorianCalendar();
         Calendar calendar2 = new GregorianCalendar();
         String result = "";
         for (Film film : films) {
-            if(film instanceof TVSeries) {
+            if (film instanceof TVSeries) {
                 calendar1.setTime(((TVSeries) film).getStartDate());
                 calendar2.setTime(((TVSeries) film).getEndDate());
                 result += "\n" + film.getTitle() + " (" + calendar1.get(Calendar.YEAR) + "-" +
-                        calendar2.get(Calendar.YEAR) + ") Ratings: " + getAvgRating(film.getRating().values()) +
+                        calendar2.get(Calendar.YEAR) + ") Ratings: " +
+                        getAvgRating(film.getRating().values()) +
                         "/10 " + film.getRating().size() + " from " +
                         film.getRating().size() + " users";
                 continue;
             }
-            calendar1.setTime(((Releasable)film).getReleaseDate());
+            calendar1.setTime(((Releasable) film).getReleaseDate());
             result += "\n" + film.getTitle() + " (" + calendar1.get(Calendar.YEAR) +
                     ") Ratings: " + getAvgRating(film.getRating().values()) +
                     "/10 " + film.getRating().size() + " from " +
@@ -133,25 +133,25 @@ public class ToStringService {
 
     public static float getAvgRating(Collection<Integer> collection) {
         int sum = 0;
-        for(Integer rate : collection) {
+        for (Integer rate : collection) {
             sum += rate;
         }
-        if(collection.isEmpty()) return 0f;
-        return sum/collection.size();
+        if (collection.isEmpty()) return 0f;
+        return sum / collection.size();
     }
 
     public static String personToShortString(Collection<Person> collection) {
         String result = "";
-        for(Person person : collection) {
+        for (Person person : collection) {
             result += "\n" + person.getName() + " " + person.getSurname();
-            if(person instanceof Director) {
+            if (person instanceof Director) {
                 result += " " + ((Director) person).getAgent();
             }
-            if(person instanceof Writer) {
+            if (person instanceof Writer) {
                 result += " " + ((Writer) person).getStyle();
             }
-            if(person instanceof Actor) {
-                result += " " + ((Actor)person).getHeight() + " cm";
+            if (person instanceof Actor) {
+                result += " " + ((Actor) person).getHeight() + " cm";
             }
         }
         return result;

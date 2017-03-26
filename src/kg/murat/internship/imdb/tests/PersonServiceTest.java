@@ -1,12 +1,11 @@
-package kg.murat.internship.imdb.services;
+package kg.murat.internship.imdb.tests;
 
 import kg.murat.internship.imdb.dao.impl.FilePersonRepositoryImpl;
-import kg.murat.internship.imdb.services.ioServices.Logger;
+import kg.murat.internship.imdb.services.PersonService;
+import kg.murat.internship.imdb.services.impl.PersonServiceImpl;
 import kg.murat.internship.imdb.services.ioServices.impl.FileLogger;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Fujitsu on 26.03.2017.

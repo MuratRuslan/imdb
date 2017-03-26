@@ -1,3 +1,403 @@
+RATE	470	113	9
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Amelie
+
+--------------------------------------------------
+RATE	470	113	9
+
+This film was earlier rated
+
+--------------------------------------------------
+RATE	454	113	8
+
+Command Failed
+User ID: 454
+Film ID: 113
+
+--------------------------------------------------
+ADD	FEATUREFILM	115	Fight_Club	English	463	139	USA	466,467,468	Drama	10.12.1999	464,465	63000000
+
+Command Failed
+Film ID: 115
+Film title Fight_Club
+
+--------------------------------------------------
+ADD	FEATUREFILM	115	Night_Club	English	463	139	USA	466,467,468	Drama	10.12.1999	464,465	63000000
+
+Command Failed
+Film ID: 115
+Film title Night_Club
+
+--------------------------------------------------
+ADD	FEATUREFILM	116	Right_Club	English	463	139	USA	466,467,999	Drama	10.12.1999	464,465	63000000
+
+Command failed
+
+--------------------------------------------------
+RATE	475	115	10
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Fight_Club
+
+--------------------------------------------------
+RATE	477	115	9
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Fight_Club
+
+--------------------------------------------------
+RATE	480	111	9
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Biyeolhan_Geori
+
+--------------------------------------------------
+RATE	477	111	7
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Biyeolhan_Geori
+
+--------------------------------------------------
+RATE	476	114	10
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: The_Godfather
+
+--------------------------------------------------
+RATE	474	114	10
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: The_Godfather
+
+--------------------------------------------------
+RATE	473	114	9
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: The_Godfather
+
+--------------------------------------------------
+RATE	472	112	8
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Silver_Linings_Playbook
+
+--------------------------------------------------
+RATE	472	103	8
+
+Film rated successfully
+Film type: Documentary
+Film title: 5_Broken_Cameras
+
+--------------------------------------------------
+RATE	472	101	6
+
+Film rated successfully
+Film type: ShortFilm
+Film title: Plastic_Bag
+
+--------------------------------------------------
+RATE	471	102	10
+
+Film rated successfully
+Film type: TVSeries
+Film title: Coupling
+
+--------------------------------------------------
+RATE	479	102	9
+
+Film rated successfully
+Film type: TVSeries
+Film title: Coupling
+
+--------------------------------------------------
+RATE	478	100	9
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: La_meglio_gioventu
+
+--------------------------------------------------
+RATE	478	109	9
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Before_Sunrise
+
+--------------------------------------------------
+RATE	476	104	9
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Pulp_Fiction
+
+--------------------------------------------------
+RATE	473	106	9
+
+Film rated successfully
+Film type: TVSeries
+Film title: Lost
+
+--------------------------------------------------
+RATE	472	106	8
+
+Film rated successfully
+Film type: TVSeries
+Film title: Lost
+
+--------------------------------------------------
+RATE	471	106	7
+
+Film rated successfully
+Film type: TVSeries
+Film title: Lost
+
+--------------------------------------------------
+RATE	478	106	10
+
+Film rated successfully
+Film type: TVSeries
+Film title: Lost
+
+--------------------------------------------------
+VIEWFILM	115
+
+Fight_Club (1998)
+Writers: Chuck Palahniuk, Jim Uhls
+Directors: David Fincher
+Stars: Edward Norton, Brad Pitt, Helena Carter
+9.0/10 from 2 Roseking Singleban, Alessandro Del-Piero
+
+--------------------------------------------------
+VIEWFILM	101
+
+Plastic_Bag (2009)
+Writers: Jenni Jenkins
+Directors: Ramin Bahrani
+Stars: Werner Herzog, Barbara Weetman
+6.0/10 from 1 Elisabet Belo
+
+--------------------------------------------------
+RATE	470	115	9
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Fight_Club
+
+--------------------------------------------------
+RATE	479	115	8
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Fight_Club
+
+--------------------------------------------------
+RATE	478	115	8
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Fight_Club
+
+--------------------------------------------------
+RATE	470	108	8
+
+Film rated successfully
+Film type: TVSeries
+Film title: Friends
+
+--------------------------------------------------
+VIEWFILM	115
+
+Fight_Club (1998)
+Writers: Chuck Palahniuk, Jim Uhls
+Directors: David Fincher
+Stars: Edward Norton, Brad Pitt, Helena Carter
+8.0/10 from 5 Ahmet Yapar, Roseking Singleban, Alessandro Del-Piero, Ysuhio Sallamasko, Gu Wang
+
+--------------------------------------------------
+LIST	USER	470	RATES
+
+Friends: 8
+Amelie: 9
+Fight_Club: 9
+
+--------------------------------------------------
+LIST	USER	476	RATES
+
+Pulp_Fiction: 9
+The_Godfather: 10
+
+--------------------------------------------------
+LIST	USER	444	RATES
+
+Command Failed
+User ID: 444
+
+--------------------------------------------------
+EDIT	RATE	470	115	10
+
+New ratings done successfully
+Film title: Fight_Club
+Your rating: 10
+
+--------------------------------------------------
+EDIT	RATE	470	109	10
+
+Command Failed
+User ID: 470
+Film ID: 109
+
+--------------------------------------------------
+VIEWFILM	103
+
+5_Broken_Cameras (2013)
+Directors: Emad Burnat, Guy Davidi
+Stars: Soraya Burnat, Mohammed Burnat, Yasin Burnat
+8.0/10 from 1 Elisabet Belo
+
+--------------------------------------------------
+LIST	ARTISTS	FROM	Turkey
+
+Directors:
+Tolga Ornek Tolga
+
+Writers:
+
+Actors:
+Zafer Ergin 178 cm
+
+Actresses:
+
+--------------------------------------------------
+EDIT	RATE	470	222	10
+
+Command Failed
+User ID: 470
+Film ID: 222
+
+--------------------------------------------------
+EDIT	RATE	475	109	10
+
+Command Failed
+User ID: 475
+Film ID: 109
+
+--------------------------------------------------
+VIEWFILM	108
+
+Friends (1994-2004)
+10 seasons, 236 episodes
+Romance,Comedy
+Writers: David Crane, Marta Kauffman, Mihael Curtis
+Directors: Kevin Bright
+Stars: Jennifer Aniston, Courteney Cox, Lisa Kudrow, Matt LeBlanc, Matthew Perry, David Schwimmer
+8.0/10 from 1 Ahmet Yapar
+
+--------------------------------------------------
+RATE	470	100	10
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: La_meglio_gioventu
+
+--------------------------------------------------
+RATE	473	113	8
+
+Film rated successfully
+Film type: FeatureFilm
+Film title: Amelie
+
+--------------------------------------------------
+REMOVE	RATE	470	108
+
+Your film rating was removed successfully
+Film title: Friends
+
+--------------------------------------------------
+VIEWFILM	108
+
+Friends (1994-2004)
+10 seasons, 236 episodes
+Romance,Comedy
+Writers: David Crane, Marta Kauffman, Mihael Curtis
+Directors: Kevin Bright
+Stars: Jennifer Aniston, Courteney Cox, Lisa Kudrow, Matt LeBlanc, Matthew Perry, David Schwimmer
+Awaiting for votes
+
+--------------------------------------------------
+REMOVE	RATE	470	109
+
+Command Failed
+User ID: 470
+Film ID: 109
+
+--------------------------------------------------
+LIST	USER	470	RATES
+
+La_meglio_gioventu: 10
+Amelie: 9
+Fight_Club: 10
+
+--------------------------------------------------
+LIST	FILM	SERIES
+
+Coupling (2000-2004)
+4 seasons and 28 episodes
+
+Lost (2004-2010)
+6 seasons and 121 episodes
+
+Friends (1994-2004)
+10 seasons and 236 episodes
+
+--------------------------------------------------
+VIEWFILM	106
+
+Lost (2004-2010)
+6 seasons, 121 episodes
+Adventure,Drama,Fantasy
+Writers: Carlton Cuse, Edward Kitsis, Adam Horowitz, Elizabeth Sarnoff, Damon Lindelof
+Directors: Jack Bender, Stephen Williams
+Stars: Jorge Garcia, Naveen Andrews, Matthew Fox, Josh Holloway, Evangeline Lilly, Emilie Ravin, Elizabeth Mitchell
+8.0/10 from 4 Murat Talay, Elisabet Belo, John Emmio�lu, Ysuhio Sallamasko
+
+--------------------------------------------------
+LIST	FILMS	BY	RATE	DEGREE
+
+FeatureFilm:
+Fight_Club (1998) Ratings: 9.0/10 5 from 5 users
+The_Godfather (1973) Ratings: 9.0/10 3 from 3 users
+Before_Sunrise (1995) Ratings: 9.0/10 1 from 1 users
+Pulp_Fiction (1994) Ratings: 9.0/10 1 from 1 users
+La_meglio_gioventu (2003) Ratings: 9.0/10 2 from 2 users
+Amelie (2001) Ratings: 8.0/10 2 from 2 users
+Silver_Linings_Playbook (2013) Ratings: 8.0/10 1 from 1 users
+Biyeolhan_Geori (2006) Ratings: 8.0/10 2 from 2 users
+Annie_Hall (1977) Ratings: 0.0/10 0 from 0 users
+Rear_Window (1956) Ratings: 0.0/10 0 from 0 users
+
+ShortFilm:
+Plastic_Bag (2009) Ratings: 6.0/10 1 from 1 users
+
+Documentary:
+5_Broken_Cameras (2013) Ratings: 8.0/10 1 from 1 users
+Gelibolu (2005) Ratings: 0.0/10 0 from 0 users
+
+TVSeries:
+Coupling (2000-2004) Ratings: 9.0/10 2 from 2 users
+Lost (2004-2010) Ratings: 8.0/10 4 from 4 users
+Friends (1994-2004) Ratings: 0.0/10 0 from 0 users
+
+--------------------------------------------------
 LIST	ARTISTS	FROM	USA
 
 Directors:

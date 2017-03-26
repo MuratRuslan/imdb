@@ -1,17 +1,18 @@
 package kg.murat.internship.imdb.dao.impl;
 
 import kg.murat.internship.imdb.dao.FilmRepository;
-import kg.murat.internship.imdb.dao.PersonRepository;
-import kg.murat.internship.imdb.entities.films.*;
+import kg.murat.internship.imdb.entities.films.Film;
+import kg.murat.internship.imdb.factories.FilmFactory;
 import kg.murat.internship.imdb.entities.films.interfaces.*;
 import kg.murat.internship.imdb.entities.units.Person;
-import kg.murat.internship.imdb.services.ToStringService;
+import kg.murat.internship.imdb.processors.ToStringProcessor;
 import kg.murat.internship.imdb.services.ioServices.impl.FileIOService;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -19,13 +20,12 @@ import java.util.Set;
  * Created by Fujitsu on 24.03.2017.
  */
 public class FileFilmRepositoryImpl extends AbstractRepository<Film> implements FilmRepository {
-    private PersonRepository personRepository;
+    private Collection<Person> personCollection;
 
-    public FileFilmRepositoryImpl(String fileToRead, PersonRepository personRepository) {
+    public FileFilmRepositoryImpl(String fileToRead, Collection<Person> personCollection) {
         super(fileToRead);
-        this.personRepository = personRepository;
+        this.personCollection = personCollection;
     }
-
 
 
     @Override
@@ -43,7 +43,7 @@ public class FileFilmRepositoryImpl extends AbstractRepository<Film> implements 
     public List<Film> getAll() {
         ioService = new FileIOService(FILE_TO_READ);
         List<Film> films = new ArrayList<>();
-        List<Person> persons = personRepository.getAll();
+        List<Person> persons = new ArrayList<>(personCollection);
         String next;
         try {
             while (null != (next = ioService.readLine())) {
@@ -61,17 +61,17 @@ public class FileFilmRepositoryImpl extends AbstractRepository<Film> implements 
         String type = film.getClass().getSimpleName() + ":";
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyy");
         String result = type + "\t" + film.getId() + "\t" + film.getTitle() + "\t" +
-                film.getLanguage() + "\t" + ToStringService.personListToString((Set) film.getDirectors()) + "\t" +
+                film.getLanguage() + "\t" + ToStringProcessor.personsToString((Set) film.getDirectors()) + "\t" +
                 film.getLength() + "\t" + film.getCountry() + "\t" +
-                ToStringService.personListToString((Set) film.getCast());
+                ToStringProcessor.personsToString((Set) film.getCast());
         if (film instanceof Genreable) {
-            result += "\t" + ToStringService.listToString(((Genreable) film).getGenre());
+            result += "\t" + ToStringProcessor.collectionStringsToString(((Genreable) film).getGenre());
         }
         if (film instanceof Releasable) {
             result += "\t" + dateFormat.format(((Releasable) film).getReleaseDate());
         }
         if (film instanceof Writable) {
-            result += "\t" + ToStringService.personListToString((Set) ((Writable) film).getWriters());
+            result += "\t" + ToStringProcessor.personsToString((Set) ((Writable) film).getWriters());
         }
         if (film instanceof Budgetable) {
             result += "\t" + ((Budgetable) film).getBudget();

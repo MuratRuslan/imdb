@@ -2,8 +2,7 @@ package kg.murat.internship.imdb.dao.impl;
 
 import kg.murat.internship.imdb.dao.PersonRepository;
 import kg.murat.internship.imdb.entities.units.Person;
-import kg.murat.internship.imdb.entities.units.PersonFactory;
-import kg.murat.internship.imdb.entities.units.User;
+import kg.murat.internship.imdb.factories.PersonFactory;
 import kg.murat.internship.imdb.services.ioServices.impl.FileIOService;
 
 import java.io.IOException;

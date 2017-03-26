@@ -1,4 +1,4 @@
-package kg.murat.internship.imdb.services;
+package kg.murat.internship.imdb.services.impl;
 
 import kg.murat.internship.imdb.dao.PersonRepository;
 import kg.murat.internship.imdb.entities.units.Person;
@@ -6,6 +6,8 @@ import kg.murat.internship.imdb.entities.units.artists.Director;
 import kg.murat.internship.imdb.entities.units.artists.Writer;
 import kg.murat.internship.imdb.entities.units.artists.performers.Actor;
 import kg.murat.internship.imdb.entities.units.artists.performers.Actress;
+import kg.murat.internship.imdb.processors.ToStringProcessor;
+import kg.murat.internship.imdb.services.PersonService;
 import kg.murat.internship.imdb.services.ioServices.Logger;
 
 import java.util.HashSet;
@@ -15,7 +17,6 @@ import java.util.Set;
  * Created by Fujitsu on 26.03.2017.
  */
 public class PersonServiceImpl implements PersonService {
-    private static final String COMMAND_FAILED_MSG = "Command Failed";
     private PersonRepository personRepository;
     private Logger logger;
     private Set<Person> personSet;
@@ -49,15 +50,19 @@ public class PersonServiceImpl implements PersonService {
             }
         });
 
-        if(directors.isEmpty() && writers.isEmpty() && actors.isEmpty() && actresses.isEmpty()) {
+        if (directors.isEmpty() && writers.isEmpty() && actors.isEmpty() && actresses.isEmpty()) {
             logger.log(command, "No result");
             return;
         }
 
-        String result = "Directors:" + ToStringService.personToShortString((Set)directors) +
-                "\n\nWriters:" + ToStringService.personToShortString((Set) writers) +
-                "\n\nActors:" + ToStringService.personToShortString((Set) actors) +
-                "\n\nActresses:" + ToStringService.personToShortString((Set) actresses);
+        String result = "Directors:" + ToStringProcessor.personToShortString((Set) directors) +
+                "\n\nWriters:" + ToStringProcessor.personToShortString((Set) writers) +
+                "\n\nActors:" + ToStringProcessor.personToShortString((Set) actors) +
+                "\n\nActresses:" + ToStringProcessor.personToShortString((Set) actresses);
         logger.log(command, result);
+    }
+
+    public Set<Person> getAll() {
+        return personSet;
     }
 }

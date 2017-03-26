@@ -8,25 +8,25 @@ import java.util.List;
 /**
  * Created by Fujitsu on 24.03.2017.
  */
-public interface FilmService {
+public interface FilmService extends Service {
 
-    void rateFilm(String command);
+    void rateFilm(String command) throws Exception;
 
-    void editRatedFilm(String command);
+    void editRatedFilm(String command) throws Exception;
 
-    void removeRate(String command);
+    void removeRate(String command) throws Exception;
 
-    void addFeatureFilm(String command);
+    void addFeatureFilm(String command) throws Exception;
 
-    Film viewFilm(String command);
+    Film viewFilm(String command) throws Exception;
 
-    List<Film> listFilmsByCountry(String command);
+    List<Film> listFilmsByCountry(String command) throws Exception;
 
-    List<Film> listFilmsUserRated(String command);
+    List<Film> listFilmsUserRated(String command) throws Exception;
 
-    List<TVSeries> listAllTVSeries(String command);
+    List<TVSeries> listAllTVSeries(String command) throws Exception;
 
-    List<Film> listAllFilmsBeforeAfter(String command);
+    List<Film> listAllFilmsBeforeAfter(String command) throws Exception;
 
-    void listAllSortedFilmsByRateDesc(String command);
+    void listAllSortedFilmsByRateDesc(String command) throws Exception;
 }

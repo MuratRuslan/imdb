@@ -4,17 +4,14 @@ import kg.murat.internship.imdb.dao.FilmRepository;
 import kg.murat.internship.imdb.dao.PersonRepository;
 import kg.murat.internship.imdb.dao.impl.FileFilmRepositoryImpl;
 import kg.murat.internship.imdb.dao.impl.FilePersonRepositoryImpl;
-import kg.murat.internship.imdb.entities.films.FeatureFilm;
+import kg.murat.internship.imdb.entities.units.Person;
 import kg.murat.internship.imdb.services.FilmService;
-import kg.murat.internship.imdb.services.FilmServiceImpl;
+import kg.murat.internship.imdb.services.impl.FilmServiceImpl;
 import kg.murat.internship.imdb.services.ioServices.Logger;
 import kg.murat.internship.imdb.services.ioServices.impl.FileLogger;
 import org.junit.Test;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
-import static org.junit.Assert.*;
+import java.util.List;
 
 /**
  * Created by Fujitsu on 25.03.2017.
@@ -28,9 +25,10 @@ public class FilmServiceTest {
     @org.junit.Before
     public void setUp() throws Exception {
         personRepository = new FilePersonRepositoryImpl("people.txt");
-        filmRepository = new FileFilmRepositoryImpl("films.txt", personRepository);
+        List<Person> personList = personRepository.getAll();
+        filmRepository = new FileFilmRepositoryImpl("films.txt", personList);
         logger = new FileLogger("output.txt");
-        filmService = new FilmServiceImpl(filmRepository, personRepository, logger);
+        filmService = new FilmServiceImpl(filmRepository, personList, logger);
     }
 
     @org.junit.After
@@ -40,23 +38,26 @@ public class FilmServiceTest {
 
     @org.junit.Test
     public void rateFilm() throws Exception {
-        filmService.rateFilm("rate film 480 110 9");
-        filmService.rateFilm("rate film 480 110 9");
-        filmService.rateFilm("rate film 480 110 8");
+        filmService.rateFilm("RATE\t470\t113\t9");
+        filmService.rateFilm("RATE\t470\t113\t9");
+        filmService.rateFilm("RATE\t454\t113\t8");
     }
 
     @org.junit.Test
     public void editRatedFilm() throws Exception {
-        filmService.rateFilm("rate film 480 110 9");
-        filmService.editRatedFilm("edit rate film 480 110 8");
-        filmService.editRatedFilm("edit rate film 480 110 9");
+        filmService.rateFilm("RATE\t480\t110\t9");
+        filmService.editRatedFilm("EDIT\tRATE\t480\t110\t10");
+        filmService.editRatedFilm("EDIT\tRATE\t470\t109\t10");
     }
 
     @org.junit.Test
     public void removeRate() throws Exception {
-        filmService.rateFilm("rate film 480 110 9");
-        filmService.removeRate("remove rate film 480 110");
-        filmService.removeRate("remove rate film 480 110");
+        filmService.rateFilm("RATE\t470\t113\t9");
+        filmService.rateFilm("RATE\t470\t113\t9");
+        filmService.rateFilm("RATE\t454\t113\t8");
+        filmService.removeRate("REMOVE\tRATE\t470\t113");
+        filmService.removeRate("REMOVE\tRATE\t470\t109");
+        filmService.removeRate("REMOVE\tRATE\t470\t113");
     }
 
     @org.junit.Test
@@ -67,30 +68,34 @@ public class FilmServiceTest {
 
     @org.junit.Test
     public void viewFilm() throws Exception {
-        filmService.rateFilm("rate film");
-        filmService.viewFilm("View film");
-        filmService.viewFilm("view film");
-        filmService.viewFilm("view film");
-        filmService.viewFilm("view film");
+        filmService.viewFilm("VIEWFILM\t108");
+        filmService.viewFilm("VIEWFILM\t110");
+        filmService.viewFilm("VIEWFILM\t100");
+        filmService.viewFilm("VIEWFILM\t89");
     }
 
     @org.junit.Test
     public void listFilmsByCountry() throws Exception {
-        filmService.listFilmsByCountry("list film by country");
+        filmService.listFilmsByCountry("LIST\tFILMS\tBY\tCOUNTRY\tJapan");
+        filmService.listFilmsByCountry("LIST\tFILMS\tBY\tCOUNTRY\tUSA");
     }
 
     @org.junit.Test
     public void listFilmsUserRated() throws Exception {
-        filmService.rateFilm("rate film");
-        filmService.rateFilm("rate film");
-        filmService.rateFilm("rate film");
-        filmService.rateFilm("rate film");
-        filmService.listFilmsUserRated("list films user rated");
+        filmService.rateFilm("RATE\t479\t102\t9");
+        filmService.rateFilm("RATE\t478\t100\t9");
+        filmService.rateFilm("RATE\t478\t109\t9");
+        filmService.rateFilm("RATE\t476\t104\t9");
+        filmService.rateFilm("RATE\t473\t106\t9");
+        filmService.rateFilm("RATE\t472\t106\t8");
+        filmService.rateFilm("RATE\t471\t106\t7");
+        filmService.rateFilm("RATE\t478\t106\t10");
+        filmService.listFilmsUserRated("LIST\tUSER\t478\tRATES");
     }
 
     @org.junit.Test
     public void listAllTVSeries() throws Exception {
-        filmService.listAllTVSeries("list all tv series");
+        filmService.listAllTVSeries("LIST\tFILM\tSERIES");
     }
 
     @org.junit.Test
@@ -101,14 +106,15 @@ public class FilmServiceTest {
 
     @org.junit.Test
     public void listAllSortedFilmsByRateDesc() throws Exception {
-        filmService.rateFilm("rate film");
-        filmService.rateFilm("rate film");
-        filmService.rateFilm("rate film");
-        filmService.rateFilm("rate film");
-        filmService.rateFilm("rate film");
-        filmService.rateFilm("rate film");
-        filmService.rateFilm("rate film");
-        filmService.listAllSortedFilmsByRateDesc("list films by rate desc");
+        filmService.rateFilm("RATE\t479\t102\t9");
+        filmService.rateFilm("RATE\t478\t100\t9");
+        filmService.rateFilm("RATE\t478\t109\t9");
+        filmService.rateFilm("RATE\t476\t104\t9");
+        filmService.rateFilm("RATE\t473\t106\t9");
+        filmService.rateFilm("RATE\t472\t106\t8");
+        filmService.rateFilm("RATE\t471\t106\t7");
+        filmService.rateFilm("RATE\t478\t106\t10");
+        filmService.listAllSortedFilmsByRateDesc("LIST\tFILMS\tBY\tRATE\tDEGREE");
     }
 
     @Test

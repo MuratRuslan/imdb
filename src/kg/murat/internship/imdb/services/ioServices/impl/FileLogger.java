@@ -2,25 +2,28 @@ package kg.murat.internship.imdb.services.ioServices.impl;
 
 import kg.murat.internship.imdb.services.ioServices.Logger;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 
 /**
  * Created by Fujitsu on 24.03.2017.
  */
 public class FileLogger implements Logger {
     private final String OUTPUT_FILE_PATH;
-
+    private File file;
     public FileLogger(String outputFilePath) {
         OUTPUT_FILE_PATH = outputFilePath;
+        file = new File(outputFilePath);
     }
 
     @Override
     public void log(String msg) {
         PrintWriter printWriter = null;
         try {
-            printWriter = new PrintWriter(new FileWriter(OUTPUT_FILE_PATH, true));
+            printWriter = new PrintWriter(new FileWriter(file, true));
         } catch (IOException e) {
         }
         printWriter.println(msg);
@@ -33,7 +36,7 @@ public class FileLogger implements Logger {
     public void log(String command, String message) {
         PrintWriter printWriter = null;
         try {
-            printWriter = new PrintWriter(new FileWriter(OUTPUT_FILE_PATH, true));
+            printWriter = new PrintWriter(new FileWriter(file, true));
         } catch (IOException e) {
         }
         printWriter.println(command);

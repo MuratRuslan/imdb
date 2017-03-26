@@ -1,5 +1,6 @@
 package kg.murat.internship.imdb.services.ioServices.impl;
 
+import kg.murat.internship.imdb.entities.films.Film;
 import kg.murat.internship.imdb.services.ioServices.IOService;
 
 import java.io.*;
@@ -10,18 +11,19 @@ import java.io.*;
 public class FileIOService implements IOService {
     private final String FILE_PATH;
     private BufferedReader reader;
-
+    private File file;
     public FileIOService(String filePath) {
         FILE_PATH = filePath;
         try {
-            reader = new BufferedReader(new FileReader(new File(FILE_PATH)));
+            file = new File(FILE_PATH);
+            reader = new BufferedReader(new FileReader(file));
         } catch (FileNotFoundException e) {
         }
     }
 
     @Override
     public void write(String msg) throws IOException {
-        FileWriter fileWriter = new FileWriter(new File(FILE_PATH), true);
+        FileWriter fileWriter = new FileWriter(file, true);
         PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.print("\n" + msg);
         printWriter.close();

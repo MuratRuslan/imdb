@@ -1,14 +1,15 @@
-package kg.murat.internship.imdb.services;
+package kg.murat.internship.imdb.services.impl;
 
 import kg.murat.internship.imdb.dao.FilmRepository;
-import kg.murat.internship.imdb.dao.PersonRepository;
 import kg.murat.internship.imdb.entities.films.*;
 import kg.murat.internship.imdb.entities.films.interfaces.Releasable;
 import kg.murat.internship.imdb.entities.units.Person;
 import kg.murat.internship.imdb.entities.units.User;
+import kg.murat.internship.imdb.factories.FilmFactory;
+import kg.murat.internship.imdb.processors.ToStringProcessor;
+import kg.murat.internship.imdb.services.FilmService;
 import kg.murat.internship.imdb.services.ioServices.Logger;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -18,21 +19,19 @@ import java.util.*;
 public class FilmServiceImpl implements FilmService {
     private static final String COMMAND_FAILED_MSG = "Command Failed";
     private FilmRepository filmRepository;
-    private PersonRepository personRepository;
     private Logger logger;
     private Set<Person> personSet;
     private Set<Film> filmSet;
 
-    public FilmServiceImpl(FilmRepository filmRepository, PersonRepository personRepository, Logger logger) {
+    public FilmServiceImpl(FilmRepository filmRepository, Collection<Person> personCollection, Logger logger) {
         this.filmRepository = filmRepository;
-        this.personRepository = personRepository;
         this.logger = logger;
-        personSet = new HashSet<>(personRepository.getAll());
+        personSet = new HashSet<>(personCollection);
         filmSet = new HashSet<>(filmRepository.getAll());
     }
 
     @Override
-    public void rateFilm(String command) {
+    public void rateFilm(String command) throws Exception {
         String[] split = command.split("\\t");
         Long userId = Long.parseLong(split[1]);
         Long filmId = Long.parseLong(split[2]);
@@ -58,7 +57,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public void editRatedFilm(String command) {
+    public void editRatedFilm(String command) throws Exception {
         String[] split = command.split("\\t");
         Long userId = Long.parseLong(split[2]);
         Long filmId = Long.parseLong(split[3]);
@@ -80,7 +79,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public void removeRate(String command) {
+    public void removeRate(String command) throws Exception {
         String[] split = command.split("\\t");
         Long userId = Long.parseLong(split[2]);
         Long filmId = Long.parseLong(split[3]);
@@ -99,14 +98,9 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public void addFeatureFilm(String command) {
+    public void addFeatureFilm(String command) throws Exception {
         String featureFilmString = "FeatureFilm:" + command.substring(15, command.length());
-        FeatureFilm film;
-        try {
-            film = (FeatureFilm) new FilmFactory().getFilm(featureFilmString, personSet);
-        } catch (ParseException e) {
-            film = null;
-        }
+        FeatureFilm film = (FeatureFilm) new FilmFactory().getFilm(featureFilmString, personSet);
 
         if (filmSet.contains(film) || null == film.getWriters() || null == film.getDirectors() ||
                 null == film.getCast()) {
@@ -125,7 +119,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Film viewFilm(String command) {
+    public Film viewFilm(String command) throws Exception {
         String[] split = command.split("\\t");
         Long filmId = Long.parseLong(split[1]);
         Film film = getFilmById(filmId);
@@ -136,12 +130,12 @@ public class FilmServiceImpl implements FilmService {
             return null;
         }
 
-        logger.log(command, ToStringService.filmToStringLog(film));
+        logger.log(command, ToStringProcessor.filmToStringLog(film));
         return film;
     }
 
     @Override
-    public List<Film> listFilmsByCountry(String command) {
+    public List<Film> listFilmsByCountry(String command) throws Exception {
         String[] split = command.split("\\t");
         String country = split[4];
         List<Film> films = new ArrayList<>();
@@ -166,7 +160,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public List<Film> listFilmsUserRated(String command) {
+    public List<Film> listFilmsUserRated(String command) throws Exception {
         String[] split = command.split("\\t");
         Long userID = Long.parseLong(split[2]);
         List<Film> films = new ArrayList<>();
@@ -216,7 +210,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public List<Film> listAllFilmsBeforeAfter(String command) {
+    public List<Film> listAllFilmsBeforeAfter(String command) throws Exception {
         String[] split = command.split("\\t");
         Integer year = Integer.parseInt(split[3]);
         List<Film> filmsBefore = new ArrayList<>();
@@ -225,18 +219,16 @@ public class FilmServiceImpl implements FilmService {
         String resultBefore = "";
         String resultAfter = "";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-        Calendar calendar = new GregorianCalendar();
-        calendar.set(year, 1, 1);
-        Date date = calendar.getTime();
+        Date date = dateFormat.parse(year.toString());
 
         for (Film film : filmRepository.getAll()) {
             if (film instanceof Releasable && ((Releasable) film).getReleaseDate().before(date)) {
                 filmsBefore.add(film);
-                resultBefore += ToStringService.filmListShortInfoToString(film) + "\n\n";
+                resultBefore += ToStringProcessor.filmShortInfoToString(film) + "\n\n";
             }
             if (film instanceof Releasable && ((Releasable) film).getReleaseDate().after(date)) {
                 filmsAfter.add(film);
-                resultAfter += ToStringService.filmListShortInfoToString(film) + "\n\n";
+                resultAfter += ToStringProcessor.filmShortInfoToString(film) + "\n\n";
             }
         }
 
@@ -276,10 +268,10 @@ public class FilmServiceImpl implements FilmService {
             }
         }
 
-        String result = "FeatureFilm:" + ToStringService.filmTitleYearRatingToString(featureFilms) +
-                "\n\nShortFilm:" + ToStringService.filmTitleYearRatingToString(shortFilms) +
-                "\n\nDocumentary:" + ToStringService.filmTitleYearRatingToString(documentaryFilms) +
-                "\n\nTVSeries:" + ToStringService.filmTitleYearRatingToString(tvSeries);
+        String result = "FeatureFilm:" + ToStringProcessor.filmsTitleYearRatingToString(featureFilms) +
+                "\n\nShortFilm:" + ToStringProcessor.filmsTitleYearRatingToString(shortFilms) +
+                "\n\nDocumentary:" + ToStringProcessor.filmsTitleYearRatingToString(documentaryFilms) +
+                "\n\nTVSeries:" + ToStringProcessor.filmsTitleYearRatingToString(tvSeries);
 
         logger.log(command, result.trim());
     }
@@ -307,8 +299,8 @@ public class FilmServiceImpl implements FilmService {
 
         @Override
         public int compare(Film film1, Film film2) {
-            float rating1 = ToStringService.getAvgRating(film1.getRating().values());
-            float rating2 = ToStringService.getAvgRating(film2.getRating().values());
+            float rating1 = ToStringProcessor.getAvgRating(film1.getRating().values());
+            float rating2 = ToStringProcessor.getAvgRating(film2.getRating().values());
             if (rating1 > rating2) {
                 return 1;
             }

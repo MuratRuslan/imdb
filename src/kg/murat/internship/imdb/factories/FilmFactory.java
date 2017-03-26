@@ -1,5 +1,6 @@
-package kg.murat.internship.imdb.entities.films;
+package kg.murat.internship.imdb.factories;
 
+import kg.murat.internship.imdb.entities.films.*;
 import kg.murat.internship.imdb.entities.units.Person;
 import kg.murat.internship.imdb.entities.units.artists.Director;
 import kg.murat.internship.imdb.entities.units.artists.Performer;
