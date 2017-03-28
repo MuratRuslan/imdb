@@ -33,7 +33,9 @@ Film title Night_Club
 --------------------------------------------------
 ADD	FEATUREFILM	116	Right_Club	English	463	139	USA	466,467,999	Drama	10.12.1999	464,465	63000000
 
-Command failed
+Command Failed
+Film ID: 116
+Film title Right_Club
 
 --------------------------------------------------
 RATE	475	115	10
@@ -175,7 +177,7 @@ Fight_Club (1998)
 Writers: Chuck Palahniuk, Jim Uhls
 Directors: David Fincher
 Stars: Edward Norton, Brad Pitt, Helena Carter
-9.0/10 from 2 Roseking Singleban, Alessandro Del-Piero
+9,0/10 from 2 Roseking Singleban, Alessandro Del-Piero
 
 --------------------------------------------------
 VIEWFILM	101
@@ -184,7 +186,7 @@ Plastic_Bag (2009)
 Writers: Jenni Jenkins
 Directors: Ramin Bahrani
 Stars: Werner Herzog, Barbara Weetman
-6.0/10 from 1 Elisabet Belo
+6,0/10 from 1 Elisabet Belo
 
 --------------------------------------------------
 RATE	470	115	9
@@ -221,7 +223,7 @@ Fight_Club (1998)
 Writers: Chuck Palahniuk, Jim Uhls
 Directors: David Fincher
 Stars: Edward Norton, Brad Pitt, Helena Carter
-8.0/10 from 5 Ahmet Yapar, Roseking Singleban, Alessandro Del-Piero, Ysuhio Sallamasko, Gu Wang
+8,0/10 from 5 Ahmet Yapar, Roseking Singleban, Alessandro Del-Piero, Ysuhio Sallamasko, Gu Wang
 
 --------------------------------------------------
 LIST	USER	470	RATES
@@ -262,7 +264,7 @@ VIEWFILM	103
 5_Broken_Cameras (2013)
 Directors: Emad Burnat, Guy Davidi
 Stars: Soraya Burnat, Mohammed Burnat, Yasin Burnat
-8.0/10 from 1 Elisabet Belo
+8,0/10 from 1 Elisabet Belo
 
 --------------------------------------------------
 LIST	ARTISTS	FROM	Turkey
@@ -296,11 +298,10 @@ VIEWFILM	108
 
 Friends (1994-2004)
 10 seasons, 236 episodes
-Romance,Comedy
 Writers: David Crane, Marta Kauffman, Mihael Curtis
 Directors: Kevin Bright
 Stars: Jennifer Aniston, Courteney Cox, Lisa Kudrow, Matt LeBlanc, Matthew Perry, David Schwimmer
-8.0/10 from 1 Ahmet Yapar
+8,0/10 from 1 Ahmet Yapar
 
 --------------------------------------------------
 RATE	470	100	10
@@ -327,7 +328,6 @@ VIEWFILM	108
 
 Friends (1994-2004)
 10 seasons, 236 episodes
-Romance,Comedy
 Writers: David Crane, Marta Kauffman, Mihael Curtis
 Directors: Kevin Bright
 Stars: Jennifer Aniston, Courteney Cox, Lisa Kudrow, Matt LeBlanc, Matthew Perry, David Schwimmer
@@ -364,38 +364,37 @@ VIEWFILM	106
 
 Lost (2004-2010)
 6 seasons, 121 episodes
-Adventure,Drama,Fantasy
 Writers: Carlton Cuse, Edward Kitsis, Adam Horowitz, Elizabeth Sarnoff, Damon Lindelof
 Directors: Jack Bender, Stephen Williams
 Stars: Jorge Garcia, Naveen Andrews, Matthew Fox, Josh Holloway, Evangeline Lilly, Emilie Ravin, Elizabeth Mitchell
-8.0/10 from 4 Murat Talay, Elisabet Belo, John Emmio�lu, Ysuhio Sallamasko
+8,0/10 from 4 Murat Talay, Elisabet Belo, John Emmio�lu, Ysuhio Sallamasko
 
 --------------------------------------------------
 LIST	FILMS	BY	RATE	DEGREE
 
 FeatureFilm:
-Fight_Club (1998) Ratings: 9.0/10 5 from 5 users
-The_Godfather (1973) Ratings: 9.0/10 3 from 3 users
-Before_Sunrise (1995) Ratings: 9.0/10 1 from 1 users
-Pulp_Fiction (1994) Ratings: 9.0/10 1 from 1 users
-La_meglio_gioventu (2003) Ratings: 9.0/10 2 from 2 users
-Amelie (2001) Ratings: 8.0/10 2 from 2 users
-Silver_Linings_Playbook (2013) Ratings: 8.0/10 1 from 1 users
-Biyeolhan_Geori (2006) Ratings: 8.0/10 2 from 2 users
-Annie_Hall (1977) Ratings: 0.0/10 0 from 0 users
-Rear_Window (1956) Ratings: 0.0/10 0 from 0 users
+Fight_Club (1998) Ratings: 9,0/10 from 5 users
+The_Godfather (1973) Ratings: 9,0/10 from 3 users
+Before_Sunrise (1995) Ratings: 9,0/10 from 1 users
+Pulp_Fiction (1994) Ratings: 9,0/10 from 1 users
+La_meglio_gioventu (2003) Ratings: 9,0/10 from 2 users
+Amelie (2001) Ratings: 8,0/10 from 2 users
+Silver_Linings_Playbook (2013) Ratings: 8,0/10 from 1 users
+Biyeolhan_Geori (2006) Ratings: 8,0/10 from 2 users
+Annie_Hall (1977) Ratings: 0,0/10 from 0 users
+Rear_Window (1956) Ratings: 0,0/10 from 0 users
 
 ShortFilm:
-Plastic_Bag (2009) Ratings: 6.0/10 1 from 1 users
+Plastic_Bag (2009) Ratings: 6,0/10 from 1 users
 
 Documentary:
-5_Broken_Cameras (2013) Ratings: 8.0/10 1 from 1 users
-Gelibolu (2005) Ratings: 0.0/10 0 from 0 users
+5_Broken_Cameras (2013) Ratings: 8,0/10 from 1 users
+Gelibolu (2005) Ratings: 0,0/10 from 0 users
 
 TVSeries:
-Coupling (2000-2004) Ratings: 9.0/10 2 from 2 users
-Lost (2004-2010) Ratings: 8.0/10 4 from 4 users
-Friends (1994-2004) Ratings: 0.0/10 0 from 0 users
+Coupling (2000-2004) Ratings: 9,0/10 from 2 users
+Lost (2004-2010) Ratings: 8,0/10 from 4 users
+Friends (1994-2004) Ratings: 0,0/10 from 0 users
 
 --------------------------------------------------
 LIST	ARTISTS	FROM	USA

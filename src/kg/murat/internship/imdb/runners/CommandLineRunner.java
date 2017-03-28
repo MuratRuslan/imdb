@@ -57,11 +57,7 @@ public class CommandLineRunner implements Runner {
         }
         List<Command> commands  = scanCommands(commandsFile);
         System.out.println();
-        for(Command command : scanCommands(commandsFile)) {
-            if(null != command) {
-                command.execute();
-            }
-        }
+        commands.stream().filter(command -> null != command).forEach(Command::execute);
     }
 
     public List<Command> scanCommands(String commandsFile) {

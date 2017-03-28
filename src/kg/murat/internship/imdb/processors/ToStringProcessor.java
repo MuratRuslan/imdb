@@ -2,6 +2,7 @@ package kg.murat.internship.imdb.processors;
 
 import kg.murat.internship.imdb.entities.films.*;
 import kg.murat.internship.imdb.entities.films.interfaces.Releasable;
+import kg.murat.internship.imdb.entities.films.interfaces.Series;
 import kg.murat.internship.imdb.entities.films.interfaces.Writable;
 import kg.murat.internship.imdb.entities.units.Person;
 import kg.murat.internship.imdb.entities.units.artists.Director;
@@ -37,56 +38,50 @@ public class ToStringProcessor {
 
     public static String filmToStringLog(Film film) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-
+        String releaseDate = (film instanceof Releasable) ? dateFormat.format(((Releasable) film).getReleaseDate()) : "";
+        String startDate = (film instanceof Series) ? dateFormat.format(((Series)film).getStartDate()) : "";
+        String endDate = (film instanceof Series) ? dateFormat.format(((Series)film).getEndDate()) : "";
+        String writers = (film instanceof Writable) ? personsNameAndSurnameToString((Set)((Writable)film).getWriters()) : "";
+        String directors = personsNameAndSurnameToString((Collection) film.getDirectors());
+        String stars = personsNameAndSurnameToString((Collection) film.getCast());
+        String ratedUsers = personsNameAndSurnameToString((Collection) film.getRating().keySet());
+        float avgRating = getAvgRating(film.getRating().values());
+        String rating = (!film.getRating().isEmpty()) ? String.format("%.1f", avgRating) + "/10 from " +
+                film.getRating().size() + " " + ratedUsers : "Awaiting for votes";
+        String format;
         if (film instanceof FeatureFilm || film instanceof ShortFilm) {
-            List<Person> writers = new ArrayList(((Writable) film).getWriters());
-            List<Person> directors = new ArrayList<>(film.getDirectors());
-            List<Person> stars = new ArrayList<>(film.getCast());
-            List<Person> ratedUsers = new ArrayList<>();
-            ratedUsers.addAll(film.getRating().keySet());
-            String releaseDate = dateFormat.format(((Releasable) film).getReleaseDate());
-            return film.getTitle() + " (" + releaseDate + ")\n" +
-                    "Writers: " + personsNameAndSurnameToString(writers) + "\n" +
-                    "Directors: " + personsNameAndSurnameToString(directors) + "\n" +
-                    "Stars: " + personsNameAndSurnameToString(stars) + "\n" +
-                    ((ratedUsers.size() > 0) ? getAvgRating(film.getRating().values()) + "/10 from " + film.getRating().size() +
-                            " " + personsNameAndSurnameToString(ratedUsers) : "Awaiting for votes");
+            format = "%s (%s)\n" +
+                    "Writers: %s\n" +
+                    "Directors: %s\n" +
+                    "Stars: %s\n" +
+                    "%s";
+            return String.format(format, film.getTitle(), releaseDate, writers, directors, stars, rating);
         }
 
         if (film instanceof Documentary) {
-            Documentary documentaryFilm = (Documentary) film;
-            String releaseDate = dateFormat.format(documentaryFilm.getReleaseDate());
-            List<Person> ratedUsers = new ArrayList<>(film.getRating().keySet());
-            List<Person> directors = new ArrayList<>(film.getDirectors());
-            List<Person> stars = new ArrayList<>(film.getCast());
-            return film.getTitle() + " (" + releaseDate + ")\n" +
-                    "Directors: " + personsNameAndSurnameToString(directors) + "\n" +
-                    "Stars: " + personsNameAndSurnameToString(stars) + "\n" +
-                    ((ratedUsers.size() > 0) ? getAvgRating(film.getRating().values()) + "/10 from " + film.getRating().size() +
-                            " " + personsNameAndSurnameToString(ratedUsers) : "Awaiting for votes");
+            format = "%s (%s)\n" +
+                    "Directors: %s\n" +
+                    "Stars: %s\n" +
+                    "%s";
+            return String.format(format, film.getTitle(), releaseDate, directors, stars, rating);
         }
 
         if (film instanceof TVSeries) {
-            TVSeries series = (TVSeries) film;
-            List<Person> writers = new ArrayList(((Writable) film).getWriters());
-            List<Person> directors = new ArrayList<>(film.getDirectors());
-            List<Person> stars = new ArrayList<>(film.getCast());
-            List<Person> ratedUsers = new ArrayList<>(film.getRating().keySet());
-            String startDate = dateFormat.format(series.getStartDate());
-            String endDate = dateFormat.format(series.getEndDate());
-            return film.getTitle() + " (" + startDate + "-" + endDate + ")\n" +
-                    series.getNumberOfSeasons() + " seasons, " + series.getNumberOfEpisodes() + " episodes\n" +
-                    collectionStringsToString(series.getGenre()) + "\n" +
-                    "Writers: " + personsNameAndSurnameToString(writers) + "\n" +
-                    "Directors: " + personsNameAndSurnameToString(directors) + "\n" +
-                    "Stars: " + personsNameAndSurnameToString(stars) + "\n" +
-                    ((ratedUsers.size() > 0) ? getAvgRating(film.getRating().values()) + "/10 from " + film.getRating().size() +
-                            " " + personsNameAndSurnameToString(ratedUsers) : "Awaiting for votes");
+            format = "%s (%s-%s)\n" +
+                    "%s seasons, %s episodes\n" +
+                    "Writers: %s\n" +
+                    "Directors: %s\n" +
+                    "Stars: %s\n" +
+                    "%s";
+            return String.format(format, film.getTitle(), startDate, endDate,
+                    ((TVSeries) film).getNumberOfSeasons(), ((TVSeries) film).getNumberOfEpisodes(),
+                    writers, directors, stars, rating);
         }
         return "";
     }
 
-    public static String personsNameAndSurnameToString(List<Person> persons) {
+    public static String personsNameAndSurnameToString(Collection<Person> collection) {
+        List<Person> persons = new ArrayList<>(collection);
         String result = "";
         if (persons.size() > 0)
             result = persons.get(0).getName() + " " + persons.get(0).getSurname();
@@ -108,25 +103,20 @@ public class ToStringProcessor {
     }
 
     public static String filmsTitleYearRatingToString(Collection<Film> films) {
-        Calendar calendar1 = new GregorianCalendar();
-        Calendar calendar2 = new GregorianCalendar();
+        String seriesformat = "\n%s (%s-%s) Ratings: %.1f/10 from %d users";
+        String filmFormat = "\n%s (%s) Ratings: %.1f/10 from %d users";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
         String result = "";
         for (Film film : films) {
+            float avgRating = getAvgRating(film.getRating().values());
             if (film instanceof TVSeries) {
-                calendar1.setTime(((TVSeries) film).getStartDate());
-                calendar2.setTime(((TVSeries) film).getEndDate());
-                result += "\n" + film.getTitle() + " (" + calendar1.get(Calendar.YEAR) + "-" +
-                        calendar2.get(Calendar.YEAR) + ") Ratings: " +
-                        getAvgRating(film.getRating().values()) +
-                        "/10 " + film.getRating().size() + " from " +
-                        film.getRating().size() + " users";
+                String startDate = dateFormat.format(((TVSeries) film).getStartDate());
+                String endDate = dateFormat.format(((TVSeries) film).getEndDate());
+                result += String.format(seriesformat, film.getTitle(), startDate, endDate, avgRating, film.getRating().size());
                 continue;
             }
-            calendar1.setTime(((Releasable) film).getReleaseDate());
-            result += "\n" + film.getTitle() + " (" + calendar1.get(Calendar.YEAR) +
-                    ") Ratings: " + getAvgRating(film.getRating().values()) +
-                    "/10 " + film.getRating().size() + " from " +
-                    film.getRating().size() + " users";
+            String releaseDate = dateFormat.format(((Releasable)film).getReleaseDate());
+            result += String.format(filmFormat, film.getTitle(), releaseDate, avgRating, film.getRating().size());
         }
         return result;
     }

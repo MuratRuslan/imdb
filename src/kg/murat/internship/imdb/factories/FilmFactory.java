@@ -105,6 +105,9 @@ public class FilmFactory {
         Set<Person> persons = new HashSet<>();
         for (String textId : idStrings.split(",")) {
             Long id = Long.parseLong(textId);
+            if(null == findPersonById(id, people)) {
+                return null;
+            }
             persons.add(findPersonById(id, people));
         }
         return persons;
