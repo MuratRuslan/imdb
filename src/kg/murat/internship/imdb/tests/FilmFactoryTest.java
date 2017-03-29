@@ -1,4 +1,4 @@
-package kg.murat.internship.imdb.factories;
+package kg.murat.internship.imdb.tests;
 
 import kg.murat.internship.imdb.dao.FilmRepository;
 import kg.murat.internship.imdb.dao.PersonRepository;
@@ -7,6 +7,7 @@ import kg.murat.internship.imdb.dao.impl.FilePersonRepositoryImpl;
 import kg.murat.internship.imdb.entities.films.Film;
 import kg.murat.internship.imdb.entities.films.interfaces.Writable;
 import kg.murat.internship.imdb.entities.units.Person;
+import kg.murat.internship.imdb.factories.FilmFactory;
 import org.junit.Before;
 import org.junit.Test;
 

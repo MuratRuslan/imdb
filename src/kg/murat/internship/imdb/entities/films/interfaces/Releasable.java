@@ -8,5 +8,4 @@ import java.util.Date;
 public interface Releasable {
     Date getReleaseDate();
 
-    void setReleaseDate(Date releaseDate);
 }

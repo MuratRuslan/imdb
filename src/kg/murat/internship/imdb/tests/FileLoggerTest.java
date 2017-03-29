@@ -1,6 +1,7 @@
-package kg.murat.internship.imdb.services.ioServices.impl;
+package kg.murat.internship.imdb.tests;
 
 import kg.murat.internship.imdb.services.ioServices.Logger;
+import kg.murat.internship.imdb.services.ioServices.impl.FileLogger;
 import org.junit.Before;
 import org.junit.Test;
 

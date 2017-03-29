@@ -56,7 +56,6 @@ public class CommandLineRunner implements Runner {
             return;
         }
         List<Command> commands  = scanCommands(commandsFile);
-        System.out.println();
         commands.stream().filter(command -> null != command).forEach(Command::execute);
     }
 
@@ -70,7 +69,6 @@ public class CommandLineRunner implements Runner {
                 commands.add(commandFactory.get(next));
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage() + "aslkdfjl");
         }
         return commands;
     }

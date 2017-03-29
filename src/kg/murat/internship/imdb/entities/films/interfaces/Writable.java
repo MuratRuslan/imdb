@@ -11,5 +11,4 @@ public interface Writable {
 
     Set<Writer> getWriters();
 
-    void setWriters(Set<Writer> writers);
 }
