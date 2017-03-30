@@ -78,7 +78,8 @@ public class ToStringProcessorTest {
 
     @Test
     public void getAvgRating() throws Exception {
-
+        float avg = ToStringProcessor.getAvgRating((Collection) personRepository.getAll());
+        System.out.println(avg);
     }
 
     @Test

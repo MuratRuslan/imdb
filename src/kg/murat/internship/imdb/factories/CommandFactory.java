@@ -46,7 +46,7 @@ public class CommandFactory {
         if(split[0].equalsIgnoreCase("list") && split[2].equalsIgnoreCase("series")) {
             return new ListAllTVSeriesCommand(filmService, command, logger);
         }
-        if(split[0].equalsIgnoreCase("list") && split[1].equalsIgnoreCase("film") && split[3].equalsIgnoreCase("country")) {
+        if(split[0].equalsIgnoreCase("list") && split[1].equalsIgnoreCase("films") && split[3].equalsIgnoreCase("country")) {
             return new ListAllFilmsByCountry(filmService, command, logger);
         }
         if(split[0].equalsIgnoreCase("list") && split[1].equalsIgnoreCase("featurefilm") && (split[2].equalsIgnoreCase("after")

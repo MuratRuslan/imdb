@@ -1,6 +1,7 @@
 package kg.murat.internship.imdb.processors;
 
 import kg.murat.internship.imdb.entities.films.*;
+import kg.murat.internship.imdb.entities.films.interfaces.Genreable;
 import kg.murat.internship.imdb.entities.films.interfaces.Releasable;
 import kg.murat.internship.imdb.entities.films.interfaces.Series;
 import kg.murat.internship.imdb.entities.films.interfaces.Writable;
@@ -10,7 +11,10 @@ import kg.murat.internship.imdb.entities.units.artists.Writer;
 import kg.murat.internship.imdb.entities.units.artists.performers.Actor;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Fujitsu on 24.03.2017.
@@ -39,43 +43,45 @@ public class ToStringProcessor {
     public static String filmToStringLog(Film film) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
         String releaseDate = (film instanceof Releasable) ? dateFormat.format(((Releasable) film).getReleaseDate()) : "";
-        String startDate = (film instanceof Series) ? dateFormat.format(((Series)film).getStartDate()) : "";
-        String endDate = (film instanceof Series) ? dateFormat.format(((Series)film).getEndDate()) : "";
-        String writers = (film instanceof Writable) ? personsNameAndSurnameToString((Set)((Writable)film).getWriters()) : "";
+        String startDate = (film instanceof Series) ? dateFormat.format(((Series) film).getStartDate()) : "";
+        String endDate = (film instanceof Series) ? dateFormat.format(((Series) film).getEndDate()) : "";
+        String genre = (film instanceof Genreable) ? collectionStringsToString(((Genreable) film).getGenre()) : "";
+        String writers = (film instanceof Writable) ? personsNameAndSurnameToString((Set) ((Writable) film).getWriters()) : "";
         String directors = personsNameAndSurnameToString((Collection) film.getDirectors());
         String stars = personsNameAndSurnameToString((Collection) film.getCast());
-        String ratedUsers = personsNameAndSurnameToString((Collection) film.getRating().keySet());
         float avgRating = getAvgRating(film.getRating().values());
         String rating = (!film.getRating().isEmpty()) ? String.format("%.1f", avgRating) + "/10 from " +
-                film.getRating().size() + " " + ratedUsers : "Awaiting for votes";
+                film.getRating().size() + " users" : "Awaiting for votes";
         String format;
         if (film instanceof FeatureFilm || film instanceof ShortFilm) {
             format = "%s (%s)\n" +
+                    "%s\n" +
                     "Writers: %s\n" +
                     "Directors: %s\n" +
                     "Stars: %s\n" +
-                    "%s";
-            return String.format(format, film.getTitle(), releaseDate, writers, directors, stars, rating);
+                    "Ratings: %s";
+            return String.format(format, film.getTitle(), releaseDate, genre, writers, directors, stars, rating);
         }
 
         if (film instanceof Documentary) {
             format = "%s (%s)\n" +
                     "Directors: %s\n" +
                     "Stars: %s\n" +
-                    "%s";
+                    "Ratings: %s";
             return String.format(format, film.getTitle(), releaseDate, directors, stars, rating);
         }
 
         if (film instanceof TVSeries) {
             format = "%s (%s-%s)\n" +
                     "%s seasons, %s episodes\n" +
+                    "%s\n" +
                     "Writers: %s\n" +
                     "Directors: %s\n" +
                     "Stars: %s\n" +
-                    "%s";
+                    "Ratings: %s";
             return String.format(format, film.getTitle(), startDate, endDate,
                     ((TVSeries) film).getNumberOfSeasons(), ((TVSeries) film).getNumberOfEpisodes(),
-                    writers, directors, stars, rating);
+                    genre, writers, directors, stars, rating);
         }
         return "";
     }
@@ -115,7 +121,7 @@ public class ToStringProcessor {
                 result += String.format(seriesformat, film.getTitle(), startDate, endDate, avgRating, film.getRating().size());
                 continue;
             }
-            String releaseDate = dateFormat.format(((Releasable)film).getReleaseDate());
+            String releaseDate = dateFormat.format(((Releasable) film).getReleaseDate());
             result += String.format(filmFormat, film.getTitle(), releaseDate, avgRating, film.getRating().size());
         }
         return result;
@@ -127,7 +133,7 @@ public class ToStringProcessor {
             sum += rate;
         }
         if (collection.isEmpty()) return 0f;
-        return sum / collection.size();
+        return (sum + 0f) / collection.size();
     }
 
     public static String personToShortString(Collection<Person> collection) {
@@ -144,6 +150,6 @@ public class ToStringProcessor {
                 result += " " + ((Actor) person).getHeight() + " cm";
             }
         }
-        return result;
+        return ("".equals(result)) ? "\nNo result" : result;
     }
 }
